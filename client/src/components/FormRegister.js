@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, InputGroup } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Container = styled.div`
     display: flex;
@@ -64,6 +66,8 @@ const FormRegister = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
+    const [passwordShow, setPasswordShow] = useState(false)
+    const [passwordShowCon, setPasswordShowCon] = useState(false)
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -78,6 +82,13 @@ const FormRegister = () => {
         setValidated(true);
         
     };
+    const togglePassword = (event) => {
+        setPasswordShow(!passwordShow);
+        setTimeout
+    }
+    const togglePasswordCon = (event) => {
+        setPasswordShowCon(!passwordShowCon);
+    }
 
     return (
         <>
@@ -98,23 +109,30 @@ const FormRegister = () => {
                     </Form.Control.Feedback>
 
                     <TitleInput>Password</TitleInput>
-                    <Form.Control 
-                        required placeholder="Password" 
-                        style={{height: 50}}
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <InputGroup>
+                        <Form.Control 
+                            required placeholder="Password" 
+                            style={{height: 50}}
+                            type= { passwordShow ? "text" : "password" }
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
+                    </InputGroup>
+
                     <Form.Control.Feedback type="invalid">
                         Please input your password.
                     </Form.Control.Feedback>
 
                     <TitleInput>Confirm Password</TitleInput>
-                    <Form.Control 
-                        required placeholder="Confirm Password" 
-                        style={{height: 50}}
-                        type="password"
-                        onChange={(e) => setConfirmPass(e.target.value)}
-                    />
+                    <InputGroup>
+                        <Form.Control 
+                            required placeholder="Confirm Password" 
+                            style={{height: 50}}
+                            type= { passwordShowCon ? "text" : "password" }
+                            onChange={(e) => setConfirmPass(e.target.value)}
+                        />
+                        <Button onClick={togglePasswordCon} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShowCon ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
+                    </InputGroup>
                     <Form.Control.Feedback type="invalid">
                         Please confirm password.
                     </Form.Control.Feedback>

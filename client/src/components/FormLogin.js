@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, InputGroup  } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
 const Container = styled.div`
@@ -62,6 +64,7 @@ const FormLogin = () => {
     const [validated, setValidated] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordShow, setPasswordShow] = useState(false)
     
     const history = useHistory();
 
@@ -77,6 +80,9 @@ const FormLogin = () => {
         setValidated(true);
       };
 
+    const togglePassword = (event) => {
+        setPasswordShow(!passwordShow);
+    }
     return (
         <>
             
@@ -97,12 +103,17 @@ const FormLogin = () => {
                     </Form.Control.Feedback>
 
                     <TitleInput>Password</TitleInput>
-                    <Form.Control 
-                        required
-                        placeholder="Password" 
-                        type="password" 
-                        style={{height: 50}}
-                    />
+
+                    <InputGroup>
+                        <Form.Control 
+                            required
+                            placeholder="Password"
+                            type= { passwordShow ? "text" : "password" }
+                            style={{height: 50}}
+                        />
+                        <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
+                    </InputGroup>
+
                     <Form.Control.Feedback type="invalid">
                         Please input your password.
                     </Form.Control.Feedback>
