@@ -38,13 +38,7 @@ const Title = styled.h1`
     color: white;
     margin-bottom: 50px;
 `
-const InputForm = styled.input`
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    height: 50px;
-    width: 100%;
-    padding-left: 15px;
-`
+
 const TitleInput = styled.p`
     margin-top: 30px;
     color: whitesmoke;
@@ -84,7 +78,7 @@ const FormRegister = () => {
     };
     const togglePassword = (event) => {
         setPasswordShow(!passwordShow);
-        setTimeout
+        
     }
     const togglePasswordCon = (event) => {
         setPasswordShowCon(!passwordShowCon);
