@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState } from 'react'
 import styled from 'styled-components'
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
@@ -80,47 +80,7 @@ const ShowFriend = () => {
                     ))
                 ):(
                     <p>No Friends</p>
-                )}
-                {/* 
-
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                        <Name>Toon</Name>
-                    </Friend>
-                    <Icon>
-                        <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
-                        <VideocamIcon style={{fontSize: 40}}/>
-                    </Icon>
-                    
-                </FriendContainer>
-
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                        <Name>Toon</Name>
-                    </Friend>
-                    <Icon>
-                        <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
-                        <VideocamIcon style={{fontSize: 40}}/>
-                    </Icon>
-                    
-                </FriendContainer>
-
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                        <Name>Toon</Name>
-                    </Friend>
-                    <Icon>
-                        <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
-                        <VideocamIcon style={{fontSize: 40}}/>
-                    </Icon>
-                    
-                </FriendContainer> */}
-
-                
-                
+                )}                
 
             </Container>
             

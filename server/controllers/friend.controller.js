@@ -36,20 +36,28 @@ exports.search = (req,res) => {
 }
 
 exports.list = (req,res) => {
-    const username = req.body.username
-    const sql = `SELECT * FROM friends WHERE user_id1 LIKE '%${username}%'`
+    const id = req.body.id
+    let friends = []
+    const sql = `SELECT * FROM friends WHERE user_id1 LIKE '%${id}%' AND status = 'accepted'`
     database.query(sql,(err,results)=>{
         if(err)throw err
-        const res = []
-        for( let i = 0 ; i < results.length ; i++ ){
-            database.query(`SELECT * FROM users WHERE id = ${results[i].id}`,(error,results)=>{
-                if(error) throw error
-                res.push(results)
+        results.forEach((result)=>{
+            database.query('SELECT * FROM users WHERE id = (?)',[result.user_id2],(err,results)=>{
+                if(err)throw err
+                friends.push(results[0])
             })
-        }
-        return res.send({
-            error:false,
-            data:res
-        })
+        })  
     })
+}
+
+exports.listrequest = (req,res) => {
+
+}
+
+exports.confirm = (req,res) => {
+
+}
+
+exports.delete = (req,res) => {
+
 }

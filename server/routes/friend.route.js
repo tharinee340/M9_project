@@ -8,4 +8,6 @@ route.post('/list',friendController.list)
 
 route.post('/search',friendController.search)
 
+route.post('/confirm',friendController.confirm)
+
 module.exports = route

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useHistory } from 'react-router'
 
 const Container = styled.div`
     width: 90%;
@@ -54,35 +55,38 @@ const AddFriendForm = () => {
     const [query, setQuery] = useState("")
     const [results, setResults] = useState([])
 
+    const history = useHistory()
+
     const onSearch = () => {
         axios.post('http://localhost:5000/auth/friend/search',{
             query:query
         }).then((response)=>{
             setResults(response.data.data)
+            history.push('/addFriend')
         })
     }
 
-    const onAddFriend = (id) => {
-        axios.post('http://localhost:5000/auth/friend/add',{
+    // const onAddFriend = (id) => {
+    //     axios.post('http://localhost:5000/auth/friend/add',{
 
-        }).then((response)=>{
-            if(!response.data.error){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Add Success!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Add Error!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-        })
-    }
+    //     }).then((response)=>{
+    //         if(!response.data.error){
+    //             Swal.fire({
+    //                 icon: 'success',
+    //                 title: 'Add Success!',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             })
+    //         }else{
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Add Error!',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             })
+    //         }
+    //     })
+    // }
 
     return (
         <>
@@ -106,7 +110,7 @@ const AddFriendForm = () => {
                                 <FriendImage src={result.imageURL}/>
                                 <Name>{result.username}</Name>
                             </Friend>
-                            <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}} onClick={onAddFriend(result.id)}>Add</Button>
+                            <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}}>Add</Button>
                         </FriendContainer>
                     ))
                 ):(

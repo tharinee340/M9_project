@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
+import axios from 'axios'
 
 const Container = styled.div`
     width: 90%;
@@ -68,6 +69,21 @@ const Time = styled.span`
 const BtnContainer = styled.div``
 
 const RequestForm = () => {
+
+    const [requests, setRequests] = useState([])
+
+    useEffect(()=>{
+        
+    },[])
+
+    const onAccept = () => {
+
+    }
+
+    const onDelete = () => {
+
+    }
+
     return (
         <>
             <Container>
