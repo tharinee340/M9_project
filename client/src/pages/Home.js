@@ -28,11 +28,7 @@ const Home = () => {
                     <NavHome/>
                     <ShowFriend/>
                 </Content>
-                
-                
             </Container>
-            
-            
         </>
     )
 }

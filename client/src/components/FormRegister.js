@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Form, InputGroup } from 'react-bootstrap'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -66,6 +67,10 @@ const FormRegister = () => {
     const [passwordShow, setPasswordShow] = useState(false)
     const [passwordShowCon, setPasswordShowCon] = useState(false)
 
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(user){
+        history.push('/home')
+    }
     
     function onClick(event){
         event.preventDefault()
@@ -76,7 +81,7 @@ const FormRegister = () => {
                     email:email
                 }).then((response)=>{
                     if(response.status===200){
-                        history.push('/login')
+                        history.push('/')
                         Swal.fire({
                             icon: 'success',
                             title: 'Register Success!',
@@ -110,7 +115,7 @@ const FormRegister = () => {
     return (
         <>
             <Container>
-                <Link to="/login"><TitleLink><KeyboardBackspaceIcon sx={{fontSize: 30}}/> SignIn </TitleLink></Link>
+                <Link to="/"><TitleLink><KeyboardBackspaceIcon sx={{fontSize: 30}}/> SignIn </TitleLink></Link>
                 <Logo>LOGO</Logo>
                 <FormContainer>
                     <Form noValidate validated={validated}>

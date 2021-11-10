@@ -14,14 +14,12 @@ function App() {
       <div className="App">
         <Router>
           <Switch>
+            
             <Route Route path="/chat/:id">
               <Chat/>
             </Route>
             <Route Route path="/call/:id">
               <VideoCall/>
-            </Route>
-            <Route path="/login">
-              <Login/>
             </Route>
             <Route path="/register">
               <Register/>
@@ -35,7 +33,10 @@ function App() {
             <Route path="/friendRequest">
               <Request/>
             </Route>
-          
+            <Route path="/">
+              <Login/>
+            </Route>
+        
           </Switch>
         </Router>
       </div>

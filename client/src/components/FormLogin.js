@@ -62,12 +62,17 @@ const FormLogin = () => {
     const [passwordShow, setPasswordShow] = useState(false)
     
     const history = useHistory();
-
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(user){
+        history.push('/home')
+    }
     function onClick(event){
         event.preventDefault()
-        axios.post('http://localhost:5000/auth/users/login',{
-            username:username,
-            password:password
+        axios.post('http://localhost:5000/auth/users/login',{},{
+            auth: {
+                username:username,
+                password:password
+            }
         }).then((response)=>{
             if(response.status===200){
                 Swal.fire({
@@ -76,6 +81,7 @@ const FormLogin = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                localStorage.setItem('user', JSON.stringify(response.data))
                 history.push('/home')
             }else{
                 Swal.fire({
