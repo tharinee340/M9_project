@@ -38,11 +38,11 @@ const FormContainer = styled.div`
 `
 const Title = styled.h1`
     color: white;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 `
 
 const TitleInput = styled.p`
-    margin-top: 30px;
+    margin-top: 20px;
     color: whitesmoke;
     font-size: 18px;
 `
@@ -130,7 +130,7 @@ const FormRegister = () => {
                     <TitleInput>Username</TitleInput>
                     <Form.Control 
                         required placeholder="Username"
-                        style={{height: 50}}
+                        style={{height: 40}}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -141,7 +141,7 @@ const FormRegister = () => {
                     <InputGroup>
                         <Form.Control 
                             required placeholder="Password" 
-                            style={{height: 50}}
+                            style={{height: 40}}
                             type= { passwordShow ? "text" : "password" }
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -156,7 +156,7 @@ const FormRegister = () => {
                     <InputGroup>
                         <Form.Control 
                             required placeholder="Confirm Password" 
-                            style={{height: 50}}
+                            style={{height: 40}}
                             type= { passwordShowCon ? "text" : "password" }
                             onChange={(e) => setConfirmPass(e.target.value)}
                         />
@@ -167,7 +167,7 @@ const FormRegister = () => {
                     </Form.Control.Feedback>
 
                     <BtnContainer>
-                        <Button style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}} type="submit">Sign Up</Button>
+                        <Button style={{width: "100%", height: 40, backgroundColor: "#6497B4", fontSize: 18}} type="submit">Sign Up</Button>
                     </BtnContainer>
                     <Link to="/login"><TextLink>Already have account ? </TextLink></Link>
                     </Form>
