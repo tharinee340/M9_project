@@ -1,4 +1,5 @@
 const database = require('../config/database')
+const bcrypt = require('bcrypt')
 
 exports.reg = function(req, res) {
     const username = req.body.username;
@@ -9,12 +10,12 @@ exports.reg = function(req, res) {
             message: 'Please fill data!'
         })
     }else{
-        const sqlCheck = "SELECT * FROM user WHERE user_name = ? OR user_email = ? LIMIT 1";
+        const sqlCheck = "SELECT * FROM users WHERE username = ? OR email = ? LIMIT 1";
         database.query(sqlCheck,[username, email], (err, result) => {
             if(err) throw err
 
             if (result.length == 1) {
-                if(result[0].user_name === username){
+                if(result[0].username === username){
                     return res.status(400).json({
                         message: 'Username is already used'
                     })
@@ -28,7 +29,7 @@ exports.reg = function(req, res) {
                 const salt = bcrypt.genSaltSync(saltRounds);
                 const hash = bcrypt.hashSync(password, salt);
 
-                const sql = "INSERT INTO user (user_name, user_password, user_email) VALUES (?, ?, ?)"
+                const sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
                 database.query(sql,[username, hash, email], (err, result) => {
                     if(err) throw err
 

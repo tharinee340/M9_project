@@ -5,6 +5,6 @@ const user = require('../controllers/user.controller')
 
 route.post('/reg', user.reg)
 
-route.post('/login', passport.authenticate('basic', {session: false}),user.login)
+route.post('/login', passport.authenticate('basic', {session: false}) ,user.login)
 
 module.exports = route

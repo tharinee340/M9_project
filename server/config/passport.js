@@ -13,22 +13,22 @@ module.exports = () => {
     passport.use(passport.initialize())
 
     passport.use(new BasicStrategy((username, password, done) => {
-        const sql = "SELECT * FROM user WHERE user_name = ? LIMIT 1"
+        const sql = "SELECT * FROM users WHERE username = ? LIMIT 1"
         connect.query(sql, [username], (err, result) => {
             if(err) throw err
     
             if(result.length === 0){
                 done(null, false);
             }else {
-                const userPassword = result[0].user_password;
+                const userPassword = result[0].password;
                 if(!bcrypt.compareSync(password, userPassword)){
                     return done(null, {
                         error: true
                     })
                 }else {
                     done(null, {
-                        id: result[0].user_id,
-                        username: result[0].user_name
+                        id: result[0].id,
+                        username: result[0].username
                     })
                 }
             }

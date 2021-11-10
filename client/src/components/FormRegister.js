@@ -82,7 +82,7 @@ const FormRegister = () => {
 
     const onRegister = async () => {
         try{
-            axios.post('http://localhost:5000/api/register',{
+            axios.post('http://localhost:5000/auth/users/register',{
                 username:username,
                 password:password,
                 email:email
