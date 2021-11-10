@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Container = styled.div`
     height: 100%;
@@ -41,7 +41,7 @@ const Sidebar1 = () => {
                 <SidebarList>
                     <Link to="/home"><List><HomeIcon style={{fontSize: 35}}/></List></Link>
                     <Link to="/addFriend"><List><PersonAddAlt1Icon style={{fontSize: 35}}/></List></Link>
-                    <Link to="/setting"><List><SettingsIcon style={{fontSize: 35}}/></List></Link>
+                    <Link to="/login"><List style={{marginBottom: 50}}><LogoutIcon style={{fontSize: 35}}/></List></Link>
                 </SidebarList>
             </Container>
             

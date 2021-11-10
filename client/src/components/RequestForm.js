@@ -83,8 +83,8 @@ const RequestForm = () => {
                         </TextContainer>
                     </Friend>
                     <BtnContainer>
-                        <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100, height: 40, marginTop: 30, height:45}}>Delete</Button>
+                        <Button variant="primary" style={{width: 100,  marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
+                        <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
                     </BtnContainer>
                 </FriendContainer>
 
@@ -99,8 +99,8 @@ const RequestForm = () => {
                         </TextContainer>
                     </Friend>
                     <BtnContainer>
-                        <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100, height: 40, marginTop: 30, height:45}}>Delete</Button>
+                        <Button variant="primary" style={{width: 100, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
+                        <Button variant="danger" style={{width: 100, marginTop: 30, height:45}}>Delete</Button>
                     </BtnContainer>
                 </FriendContainer>
 
@@ -115,8 +115,8 @@ const RequestForm = () => {
                         </TextContainer>
                     </Friend>
                     <BtnContainer>
-                        <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100, height: 40, marginTop: 30, height:45}}>Delete</Button>
+                        <Button variant="primary" style={{width: 100, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
+                        <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
                     </BtnContainer>
                 </FriendContainer>
 

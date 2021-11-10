@@ -74,24 +74,29 @@ const Sidebar2 = () => {
                     <Title>My Friends</Title>
     
                 <FriendContainer>
-                    <Friend>
+                    <Link to="/chat/1"><Friend>
                     <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend>  </Friend>   
-                </FriendContainer>
-               
-               <FriendContainer>
-                <Friend>
-                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend>    
-                </Friend>
+                    <NameFriend>Cartoon</NameFriend></Friend>  
+                    </Link> 
                 </FriendContainer>
 
                 <FriendContainer>
-                <Friend>
+                    <Link to="/chat/1"><Friend>
                     <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend>    
-                </Friend>
+                    <NameFriend>Cartoon</NameFriend></Friend>  
+                    </Link> 
                 </FriendContainer>
+
+                <FriendContainer>
+                    <Link to="/chat/1"><Friend>
+                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
+                    <NameFriend>Cartoon</NameFriend></Friend>  
+                    </Link> 
+                </FriendContainer>
+
+            
+               
+               
                 
 
                 
