@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
+import axios from 'axios';
 
 const Container = styled.div`
     width: 90%;
@@ -45,21 +46,42 @@ const Name = styled.h5`
     margin-left: 20px;
 `
 const ShowFriend = () => {
+
+    const [friends, setFriends] = useState([])
+
+    useEffect(()=>{
+        axios.post('http://localhost:5000/auth/friend/list',{
+
+        }).then((response)=>{
+            if(!response.data.error){
+                setFriends(response.data.data)
+            }
+        })
+    },[])
+
     return (
         <>
             <Container>
                 <Text>Online</Text>
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                        <Name>Toon</Name>
-                    </Friend>
-                    <Icon>
-                        <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
-                        <VideocamIcon style={{fontSize: 40}}/>
-                    </Icon>
-                    
-                </FriendContainer>
+
+                {friends.length>0 ? (
+                    friends.map((friend)=>(
+                        <FriendContainer>
+                            <Friend>
+                                <FriendImage src={friend.imageURL}/>
+                                <Name>{friend.username}</Name>
+                            </Friend>
+                            <Icon>
+                                <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
+                                <VideocamIcon style={{fontSize: 40}}/>
+                            </Icon>
+                            
+                        </FriendContainer>
+                    ))
+                ):(
+                    <p>No Friends</p>
+                )}
+                {/* 
 
                 <FriendContainer>
                     <Friend>
@@ -95,7 +117,7 @@ const ShowFriend = () => {
                         <VideocamIcon style={{fontSize: 40}}/>
                     </Icon>
                     
-                </FriendContainer>
+                </FriendContainer> */}
 
                 
                 
