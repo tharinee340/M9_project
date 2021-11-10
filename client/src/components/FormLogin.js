@@ -90,7 +90,7 @@ const FormLogin = () => {
                     <Form.Control 
                         required
                         placeholder="Username" 
-                        style={{height: 50}}
+                        style={{height: 40}}
                     />
                     <Form.Control.Feedback type="invalid">
                         Please input your username.
@@ -103,7 +103,7 @@ const FormLogin = () => {
                             required
                             placeholder="Password"
                             type= { passwordShow ? "text" : "password" }
-                            style={{height: 50}}
+                            style={{height: 40}}
                         />
                         <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
                     </InputGroup>
@@ -113,7 +113,7 @@ const FormLogin = () => {
                     </Form.Control.Feedback>
 
                     <BtnContainer>
-                        <Button type="submit" style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}}>Sign In</Button>
+                        <Button type="submit" style={{width: "100%", height: 40, backgroundColor: "#6497B4", fontSize: 18}}>Sign In</Button>
                     </BtnContainer>
                     <Link to="/register"><TextLink>Don't have account ? </TextLink></Link>
                     </Form >
