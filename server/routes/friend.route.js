@@ -1,11 +1,11 @@
 const route = require('express').Router()
 
-const friend = require('../controllers/friend.controller')
+const friendController = require('../controllers/friend.controller')
 
-route.post('/add',friend.add)
+route.post('/add',friendController.add)
 
-route.get('/list',friend.list)
+route.get('/list',friendController.list)
 
-route.get('/search',friend.search)
+route.get('/search',friendController.search)
 
 module.exports = route

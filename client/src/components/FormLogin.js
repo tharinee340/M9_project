@@ -63,44 +63,29 @@ const FormLogin = () => {
     
     const history = useHistory();
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        } else {
-            onLogin()
-        }
-    
-        setValidated(true);
-      };
-
-      const onLogin = async () => {
-        try{
-            axios.post('http://localhost:5000/auth/users/login',{
-                username:username,
-                password:password,
-            }).then((response)=>{
-                if(response.status===200){
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Login Success!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    history.push('/home')
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Username or Password incorrect!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-            })
-        }catch(err){
-            throw err
-        }
+    function onClick(event){
+        event.preventDefault()
+        axios.post('http://localhost:5000/auth/users/login',{
+            username:username,
+            password:password
+        }).then((response)=>{
+            if(response.status===200){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Success!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                history.push('/home')
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Username or Password incorrect!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
     }
 
     const togglePassword = (event) => {
@@ -113,7 +98,7 @@ const FormLogin = () => {
                 <Link to="/register"><TitleLink>Signup <ArrowRightAltIcon sx={{fontSize: 30}}/></TitleLink></Link>
                 <Logo>LOGO</Logo>
                 <FormContainer>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated}>
                     <Title>Sign In</Title>
                     <TitleInput>Username</TitleInput>
                     <Form.Control 
@@ -144,7 +129,7 @@ const FormLogin = () => {
                     </Form.Control.Feedback>
 
                     <BtnContainer>
-                        <Button type="submit" style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}}>Sign In</Button>
+                        <Button type="submit" style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}} onClick={onClick}>Sign In</Button>
                     </BtnContainer>
                     <Link to="/register"><TextLink>Don't have account ? </TextLink></Link>
                     </Form >

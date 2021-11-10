@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -12,30 +12,32 @@ function App() {
   return (
     <>
       <div className="App">
-        <Switch>
-          <Route Route path="/chat/:id">
-            <Chat/>
-          </Route>
-          <Route Route path="/call/:id">
-            <VideoCall/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/home">
-            <Home/>
-          </Route>
-          <Route path="/addFriend">
-            <AddFriend/>
-          </Route>
-          <Route path="/friendRequest">
-            <Request/>
-          </Route>
-         
-        </Switch>
+        <Router>
+          <Switch>
+            <Route Route path="/chat/:id">
+              <Chat/>
+            </Route>
+            <Route Route path="/call/:id">
+              <VideoCall/>
+            </Route>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="/register">
+              <Register/>
+            </Route>
+            <Route path="/home">
+              <Home/>
+            </Route>
+            <Route path="/addFriend">
+              <AddFriend/>
+            </Route>
+            <Route path="/friendRequest">
+              <Request/>
+            </Route>
+          
+          </Switch>
+        </Router>
       </div>
     </>
   );

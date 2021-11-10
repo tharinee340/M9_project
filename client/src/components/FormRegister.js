@@ -66,48 +66,38 @@ const FormRegister = () => {
     const [passwordShow, setPasswordShow] = useState(false)
     const [passwordShowCon, setPasswordShowCon] = useState(false)
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        console.log(validated)
-        if (form.checkValidity() === false || password !== confirmPass) {
-          event.preventDefault();
-          event.stopPropagation();
-        } else {
-            onRegister()
-        }
-        //ต้องมาเพิ่มตัว validate 
-        setValidated(true);
-        
-    };
-
-    const onRegister = async () => {
-        try{
-            axios.post('http://localhost:5000/auth/users/register',{
-                username:username,
-                password:password,
-                email:email
-            }).then((response)=>{
-                if(response.status===201){
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Register Success!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    history.push('/login')
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'username In Use!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }                
-            })
-        }catch(err){
-            throw err
-        }
+    
+    function onClick(event){
+        event.preventDefault()
+        if(password===confirmPass){
+                axios.post('http://localhost:5000/auth/users/reg',{
+                    username:username,
+                    password:password,
+                    email:email
+                }).then((response)=>{
+                    if(response.status===200){
+                        history.push('/login')
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Register Success!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'username In Use!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }                
+                })
+                //ต้องมาเพิ่มตัว validate 
+                setValidated(true);
+        };
     }
+    
+   
 
     const togglePassword = (event) => {
         setPasswordShow(!passwordShow);
@@ -123,7 +113,7 @@ const FormRegister = () => {
                 <Link to="/login"><TitleLink><KeyboardBackspaceIcon sx={{fontSize: 30}}/> SignIn </TitleLink></Link>
                 <Logo>LOGO</Logo>
                 <FormContainer>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated}>
                     <Title>Sign Up</Title>
                     <TitleInput>Email</TitleInput>
                     <Form.Control 
@@ -175,7 +165,7 @@ const FormRegister = () => {
                     </Form.Control.Feedback>
 
                     <BtnContainer>
-                        <Button style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}} type="submit">Sign Up</Button>
+                        <Button style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}} type="submit" onClick={onClick}>Sign Up</Button>
                     </BtnContainer>
                     <Link to="/login"><TextLink>Already have account ? </TextLink></Link>
                     </Form>
