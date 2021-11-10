@@ -1,10 +1,10 @@
 const route = require('express').Router()
 const passport = require('passport')
 
-const user = require('../controllers/user.controller')
+const userController = require('../controllers/user.controller')
 
-route.post('/reg', user.reg)
+route.post('/reg', userController.reg)
 
-route.post('/login', passport.authenticate('basic', {session: false}),user.login)
+route.post('/login', passport.authenticate('basic', {session: false}), userController.login)
 
 module.exports = route
