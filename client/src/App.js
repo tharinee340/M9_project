@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AddFriend from "./pages/AddFriend";
 import Request from "./pages/Request";
 import Chat from "./pages/Chat";
+import VideoCall from "./pages/VideoCall";
 import './App.css'
  
 function App() {
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route Route path="/chat/:id">
             <Chat/>
+          </Route>
+          <Route Route path="/call/:id">
+            <VideoCall/>
           </Route>
           <Route path="/login">
             <Login/>
