@@ -87,14 +87,22 @@ const FormRegister = () => {
                 password:password,
                 email:email
             }).then((response)=>{
-                console.log(response)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Register Success!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                history.push('/login')
+                if(response.status===201){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Register Success!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    history.push('/login')
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'username In Use!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }                
             })
         }catch(err){
             throw err

@@ -5,11 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 router.post('/register',(req,res,next)=>{
-    db.query(
-        `SELECT * FROM users WHERE LOWER(username) = LOWER(${db.escape(
-          req.body.username
-        )});`,
-        (err, result) => {
+    db.query(`SELECT * FROM users WHERE LOWER(username) = LOWER(${db.escape(req.body.username)});`,(err, result) => {
           if (result.length) {
             return res.status(409).send({
               msg: "This user is already in use!",
@@ -23,11 +19,7 @@ router.post('/register',(req,res,next)=>{
                 });
               } else {
                 // has hashed pw => add to database
-                db.query(
-                  `INSERT INTO users (username, email, password) VALUES ('${
-                    req.body.username
-                  }', ${db.escape(req.body.email)}, ${db.escape(hash)})`,
-                  (err, result) => {
+                db.query(`INSERT INTO users (username, email, password) VALUES ('${req.body.username}', ${db.escape(req.body.email)}, ${db.escape(hash)})`,(err, result) => {
                     if (err) {
                       throw err;
                     }
@@ -44,9 +36,7 @@ router.post('/register',(req,res,next)=>{
 })
 
 router.post('/login',(req,res,next)=>{
-    db.query(
-        `SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,
-        (err, result) => {
+    db.query(`SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,(err, result) => {
           // user does not exists
           if (err) {
             throw err;
@@ -57,10 +47,7 @@ router.post('/login',(req,res,next)=>{
             });
           }
           // check password
-          bcrypt.compare(
-            req.body.password,
-            result[0]["password"],
-            (bErr, bResult) => {
+          bcrypt.compare(req.body.password,result[0]["password"],(bErr, bResult) => {
               // wrong password
               if (bErr) {
                 throw bErr;
@@ -71,9 +58,7 @@ router.post('/login',(req,res,next)=>{
                   "the-super-strong-secrect",
                   { expiresIn: "1h" }
                 );
-                db.query(
-                  `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                );
+                db.query(`UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`);
                 return res.status(200).send({
                   msg: "Logged in!",
                   token,

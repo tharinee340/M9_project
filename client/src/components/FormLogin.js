@@ -81,14 +81,22 @@ const FormLogin = () => {
                 username:username,
                 password:password,
             }).then((response)=>{
-                console.log(response)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Success!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                history.push('/home')
+                if(response.status===200){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Success!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    history.push('/home')
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Username or Password incorrect!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             })
         }catch(err){
             throw err
