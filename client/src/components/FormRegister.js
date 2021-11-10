@@ -92,6 +92,16 @@ const FormRegister = () => {
                 <FormContainer>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Title>Sign Up</Title>
+                    <TitleInput>Email</TitleInput>
+                    <Form.Control 
+                        required placeholder="Email"
+                        style={{height: 50}}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        Please input your username.
+                    </Form.Control.Feedback>
+
                     <TitleInput>Username</TitleInput>
                     <Form.Control 
                         required placeholder="Username"
