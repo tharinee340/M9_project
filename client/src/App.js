@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import AddFriend from "./pages/AddFriend";
 import './App.css'
  
 function App() {
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path="/home">
             <Home/>
+          </Route>
+          <Route path="/addFriend">
+            <AddFriend/>
           </Route>
         </Switch>
       </div>
