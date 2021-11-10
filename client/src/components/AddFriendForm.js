@@ -68,7 +68,7 @@ const AddFriendForm = () => {
                         <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
                         <Name>Cartoon</Name>
                     </Friend>
-                    <Button variant="success" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
+                    <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
                 </FriendContainer>
 
                 <FriendContainer>
@@ -76,7 +76,7 @@ const AddFriendForm = () => {
                         <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
                         <Name>Cartoon</Name>
                     </Friend>
-                    <Button variant="success" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
+                    <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
                 </FriendContainer>
 
                 <FriendContainer>
@@ -84,7 +84,7 @@ const AddFriendForm = () => {
                         <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
                         <Name>Cartoon</Name>
                     </Friend>
-                    <Button variant="success" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
+                    <Button variant="primary" style={{width: 100, height: 40, marginTop: 30, height:45}}>Add</Button>
                 </FriendContainer>
                
             </Container>

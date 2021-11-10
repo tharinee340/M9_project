@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button} from 'react-bootstrap'
 
 const Container = styled.div`
-    width: 80vw;
+    width: 78vw;
     height: 80px;
     background-color: #4C515C;
     display: flex;

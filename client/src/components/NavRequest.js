@@ -14,15 +14,14 @@ const Title = styled.h4`
     padding-right: 30px;
 
 `
-const NavAdd = () => {
+const NavRequest = () => {
     return (
         <>
             <Container>
-                <Title>Add Friend</Title>
+                <Title>Friend Request</Title>
             </Container>
-            
         </>
     )
 }
 
-export default NavAdd
+export default NavRequest

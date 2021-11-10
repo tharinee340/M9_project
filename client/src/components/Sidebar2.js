@@ -69,7 +69,7 @@ const Sidebar2 = () => {
                     <ProfileImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg"></ProfileImage>
                 </Profile>
                 <Request>
-                    <Link to="/request" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
+                    <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
                 </Request>
                     <Title>My Friends</Title>
     
