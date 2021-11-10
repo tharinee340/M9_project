@@ -1,4 +1,5 @@
 const database = require('../config/database')
+const bcrypt = require('bcrypt')
 
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')

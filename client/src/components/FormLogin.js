@@ -77,7 +77,7 @@ const FormLogin = () => {
 
       const onLogin = async () => {
         try{
-            axios.post('http://localhost:5000/api/login',{
+            axios.post('http://localhost:5000/auth/users/login',{
                 username:username,
                 password:password,
             }).then((response)=>{
