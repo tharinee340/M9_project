@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
     width: 90%;
@@ -49,6 +51,38 @@ const Name = styled.h5`
 const AddFriendForm = () => {
 
     //ตั้งให้ถ้า useState (ตัวที่เก็บชื่อ) == 0 แสดง not found
+    const [query, setQuery] = useState("")
+    const [results, setResults] = useState([])
+
+    const onSearch = () => {
+        axios.post('http://localhost:5000/auth/friend/search',{
+            query:query
+        }).then((response)=>{
+            setResults(response.data.data)
+        })
+    }
+
+    const onAddFriend = (id) => {
+        axios.post('http://localhost:5000/auth/friend/add',{
+
+        }).then((response)=>{
+            if(!response.data.error){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Add Success!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Add Error!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    }
 
     return (
         <>
@@ -58,34 +92,27 @@ const AddFriendForm = () => {
                         <FormControl 
                             style={{height: 45}}
                             placeholder="Enter Username"
+                            onChange={(e) => setQuery(e.target.value)}
                         />
-                        <Button variant="primary" style={{width: 100, height: 45}}>Search</Button>
+                        <Button variant="primary" style={{width: 100, height: 45}} onClick={onSearch}>Search</Button>
                     </InputGroup>
                 </InputContainer>
                 
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
-                        <Name>Cartoon</Name>
-                    </Friend>
-                    <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}}>Add</Button>
-                </FriendContainer>
 
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
-                        <Name>Cartoon</Name>
-                    </Friend>
-                    <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}}>Add</Button>
-                </FriendContainer>
-
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://bombaymeatco.com/wp-content/uploads/2014/11/free-profile-photo-whatsapp-4.png"/>
-                        <Name>Cartoon</Name>
-                    </Friend>
-                    <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}}>Add</Button>
-                </FriendContainer>
+                {results.length>0 ? (
+                    results.map((result)=>(
+                        <FriendContainer>
+                            <Friend>
+                                <FriendImage src={result.imageURL}/>
+                                <Name>{result.username}</Name>
+                            </Friend>
+                            <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}} onClick={onAddFriend(result.id)}>Add</Button>
+                        </FriendContainer>
+                    ))
+                ):(
+                    <p>No Results</p>
+                )
+                }
                
             </Container>
             
