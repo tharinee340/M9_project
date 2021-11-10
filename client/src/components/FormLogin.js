@@ -111,7 +111,7 @@ const FormLogin = () => {
                     <Form.Control 
                         required
                         placeholder="Username" 
-                        style={{height: 50}}
+                        style={{height: 40}}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -125,7 +125,7 @@ const FormLogin = () => {
                             required
                             placeholder="Password"
                             type= { passwordShow ? "text" : "password" }
-                            style={{height: 50}}
+                            style={{height: 40}}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>

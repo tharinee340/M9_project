@@ -120,7 +120,7 @@ const FormRegister = () => {
                     <TitleInput>Email</TitleInput>
                     <Form.Control 
                         required placeholder="Email"
-                        style={{height: 50}}
+                        style={{height: 40}}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
