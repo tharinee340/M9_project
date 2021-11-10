@@ -5,7 +5,8 @@ import { Link, useHistory } from 'react-router-dom'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
     display: flex;
@@ -68,11 +69,31 @@ const FormLogin = () => {
           event.preventDefault();
           event.stopPropagation();
         } else {
-            history.push('/home')
+            onLogin()
         }
     
         setValidated(true);
       };
+
+      const onLogin = async () => {
+        try{
+            axios.post('http://localhost:5000/api/login',{
+                username:username,
+                password:password,
+            }).then((response)=>{
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Success!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                history.push('/home')
+            })
+        }catch(err){
+            throw err
+        }
+    }
 
     const togglePassword = (event) => {
         setPasswordShow(!passwordShow);
@@ -91,6 +112,7 @@ const FormLogin = () => {
                         required
                         placeholder="Username" 
                         style={{height: 50}}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
                         Please input your username.
@@ -104,6 +126,7 @@ const FormLogin = () => {
                             placeholder="Password"
                             type= { passwordShow ? "text" : "password" }
                             style={{height: 50}}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
                     </InputGroup>

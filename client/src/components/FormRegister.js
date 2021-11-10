@@ -5,6 +5,8 @@ import { Link, useHistory } from 'react-router-dom'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
     display: flex;
@@ -57,6 +59,7 @@ const TextLink = styled.p`
 const FormRegister = () => {
     const [validated, setValidated] = useState(false);
     const history = useHistory();
+    const [email,setEmail] = useState("")
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
@@ -70,12 +73,34 @@ const FormRegister = () => {
           event.preventDefault();
           event.stopPropagation();
         } else {
-            history.push('/login')
+            onRegister()
         }
         //ต้องมาเพิ่มตัว validate 
         setValidated(true);
         
     };
+
+    const onRegister = async () => {
+        try{
+            axios.post('http://localhost:5000/api/register',{
+                username:username,
+                password:password,
+                email:email
+            }).then((response)=>{
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Register Success!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                history.push('/login')
+            })
+        }catch(err){
+            throw err
+        }
+    }
+
     const togglePassword = (event) => {
         setPasswordShow(!passwordShow);
         
@@ -96,7 +121,7 @@ const FormRegister = () => {
                     <Form.Control 
                         required placeholder="Email"
                         style={{height: 50}}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
                         Please input your username.
