@@ -1,9 +1,10 @@
 const database = require('../config/database')
 
+// add friend
 exports.add = (req,res) => {
     const id = req.body.id
     const id2 = req.body.id2
-    const sql2 = `INSERT INTO friends (user_id1,user_id2,status) VALUES ((?),(?),'pending')`
+    const sql2 = `INSERT INTO friends (user_id1,user_id2,status) VALUES (?, ?, 'pending')`
     database.query(sql2,[id,id2],(err,results)=>{
         if(err) throw err
         return res.send({
@@ -11,10 +12,10 @@ exports.add = (req,res) => {
         })
     })
 }
-
+// search all users 
 exports.search = (req,res) => {
     const query = req.body.query
-    const sql = `SELECT * FROM users WHERE username LIKE '%(?)%'`
+    const sql = `SELECT * FROM users WHERE username LIKE '%?%'`
     database.query(sql,[query],(err,results)=>{
         if(err)throw err
         return res.send({
@@ -24,33 +25,45 @@ exports.search = (req,res) => {
     })
 }
 
+// show list friend of userid1
 exports.list = (req,res) => {
-    const id = req.body.id
-    let friends = []
-    const sql = `SELECT * FROM friends WHERE user_id1 LIKE '%${id}%' AND status = 'accepted'`
-    database.query(sql,(err,results)=>{
-        if(err)throw err
-        results.forEach((result)=>{
-            database.query('SELECT * FROM users WHERE id = (?)',[result.user_id2],(err,results)=>{
-                if(err) throw err
-                friends.push(results[0])
-            })
-        })  
+    const id = req.params.id
+    const sql = 'SELECT * FROM friends INNER JOIN users ON friends.user_id2 = users.id WHERE user_id1 = ?'
+    database.query(sql, [id], (err,result) => {
+        if(err) throw err
+
+        if(result.length == 0){
+            return res.status(400).json({message:'no friend'})
+        }else{
+            return res.status(200).json(result)
+        }
     })
 }
 
+// show pending list friend of userid1
 exports.listrequest = (req,res) => {
+    const id = req.params.id
+    const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND status = "pending"'
+    database.query(sql, [id], (err, result) => {
+        if(err) throw err
 
+        if(result.length == 0){
+            return res.status(400).json({message:'No pending request!'})
+        }else{
+            return res.status(200).json(result)
+        }
+    })
 }
 
+// update pending status to accept status (Be friend!)
 exports.confirm = (req,res) => {
     const id = req.body.id
     const id2 = req.body.id2
-    const sql = `SELECT * FROM friends WHERE user_id1 = (?) AND user_id2 = (?)`
+    const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND user_id2 = ?'
     database.query(sql,[id,id2],(err,results)=>{
         if(err) throw err
         let user_id = results[0].id
-        database.query(`UPDATE friends SET status = 'accepted', friends_since = now() WHERE id = (?)`,[user_id],(err,results)=>{
+        database.query(`UPDATE friends SET status = 'accepted', friends_since = now() WHERE id = ?`,[user_id],(err,results)=>{
             if(err) throw err
             return res.send({
                 error:false
@@ -58,15 +71,16 @@ exports.confirm = (req,res) => {
         })
     })
 }
-
+// delete friend of userid1
 exports.delete = (req,res) => {
-    const id = req.body.id
-    const id2 = req.body.id2
-    const sql = `DELETE FROM friends WHERE user_id1 = (?) AND user_id2 = (?)`
+    const id = req.params.id
+    const id2 = req.params.id2
+    console.log('id1', id);
+    console.log('id2', id2);
+    const sql = `DELETE FROM friends WHERE user_id1 = ? AND user_id2 = ?`
     database.query(sql,[id,id2],(err,results)=>{
         if(err) throw err
-        return res.send({
-            error:false
-        })
+
+        return res.status(200).json({message:'Deleted friends successfully!'})
     })
 }

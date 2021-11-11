@@ -4,12 +4,14 @@ const friendController = require('../controllers/friend.controller')
 
 route.post('/add',friendController.add)
 
-route.post('/list',friendController.list)
+route.get('/list/:id',friendController.list) 
+
+route.get('/listrequest/:id',friendController.listrequest) 
 
 route.post('/search',friendController.search)
 
-route.post('/confirm',friendController.confirm)
+route.post('/confirm',friendController.confirm) 
 
-route.post('/delete',friendController.delete)
+route.delete('/delete/:id/:id2',friendController.delete)
 
 module.exports = route
