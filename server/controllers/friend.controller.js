@@ -55,7 +55,7 @@ exports.list = (req,res) => {
 // show pending list friend of userid1
 exports.listrequest = (req,res) => {
     const id = req.params.id
-    const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND status = "pending"'
+    const sql = 'SELECT * FROM friends INNER JOIN users ON friends.user_id1 = users.id WHERE user_id2 = ? AND status = "pending"'
     database.query(sql, [id], (err, result) => {
         if(err) throw err
 
@@ -77,8 +77,12 @@ exports.confirm = (req,res) => {
         let user_id = results[0].id
         database.query(`UPDATE friends SET status = 'accepted', friends_since = now() WHERE id = ?`,[user_id],(err,results)=>{
             if(err) throw err
-            return res.send({
-                error:false
+            
+            const sql2 = 'INSERT INTO friends (user_id1, user_id2, status, friends_since) VALUES (?, ?, ?, ?)'
+            database.query(sql2,[id2, id, "accepted", now()], (err,result) => {
+                if(err) throw err
+
+                return res.status(200).json({message:'Add friend successfully!'})
             })
         })
     })
@@ -87,12 +91,13 @@ exports.confirm = (req,res) => {
 exports.delete = (req,res) => {
     const id = req.params.id
     const id2 = req.params.id2
-    console.log('id1', id);
-    console.log('id2', id2);
     const sql = `DELETE FROM friends WHERE user_id1 = ? AND user_id2 = ?`
     database.query(sql,[id,id2],(err,results)=>{
-        if(err) throw err
-
-        return res.status(200).json({message:'Deleted friends successfully!'})
+        if(err) throw err 
+        database.query(sql,[id2,id],(err,results)=>{
+            if(err) throw err
+    
+            return res.status(200).json({message:'Delete successfully!'})
+        })
     })
 }

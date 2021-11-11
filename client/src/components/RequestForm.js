@@ -69,11 +69,16 @@ const Time = styled.span`
 const BtnContainer = styled.div``
 
 const RequestForm = () => {
-
     const [requests, setRequests] = useState([])
+    const id = JSON.parse(localStorage.getItem('user'))
 
     useEffect(()=>{
-        
+        if(id !== null){
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                setRequests(res.data)
+                console.log(res.data);
+            })
+        }
     },[])
 
     const onAccept = () => {
@@ -88,23 +93,34 @@ const RequestForm = () => {
         <>
             <Container>
                 <Title>You have 3 Requests</Title>
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
-                        <TextContainer>
-                            <List>
-                                <Name>Cartoon</Name>
-                                <Date>10.11.23<Time>11.00</Time></Date>
-                            </List>
-                        </TextContainer>
-                    </Friend>
-                    <BtnContainer>
-                        <Button variant="primary" style={{width: 100,  marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
-                    </BtnContainer>
-                </FriendContainer>
 
-                <FriendContainer>
+                {requests.length>0 ? (
+                    requests.map((user)=>(
+                        <FriendContainer>
+                            <Friend>
+                                <FriendImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
+                                <TextContainer>
+                                    <List>
+                                        <Name>{user.username}</Name>
+                                        {/* <Date>10.11.23<Time>11.00</Time></Date> */}
+                                    </List>
+                                </TextContainer>
+                            </Friend>
+                            <BtnContainer>
+                                <Button variant="primary" style={{width: 100,  marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
+                                <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
+                            </BtnContainer>
+                        </FriendContainer>
+                    ))
+                ):(
+                    <p>No friend request</p>
+                )}                
+
+
+
+               
+
+                {/* <FriendContainer>
                     <Friend>
                         <FriendImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
                         <TextContainer>
@@ -134,7 +150,7 @@ const RequestForm = () => {
                         <Button variant="primary" style={{width: 100, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
                         <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
                     </BtnContainer>
-                </FriendContainer>
+                </FriendContainer> */}
 
                 
             </Container>

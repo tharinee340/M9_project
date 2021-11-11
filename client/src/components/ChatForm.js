@@ -67,21 +67,23 @@ const ChatForm = () => {
     const [messages,setMessages] = useState([])
 
     useEffect(()=>{
-        if(search!==null){
-            axios.post('http://localhost:8080/auth/chat/searchmessages',{
-            id:id1,
-            id2:id,
-            query:search
-            }).then((response)=>{
-                setMessages(response.data.data)
-            })
-        }else{
-            axios.post('http://localhost:8080/auth/chat/getmessages',{
-            id:id1,
-            id2:id
-            }).then((response)=>{
-                setMessages(response.data.data)
-            })
+        if(id1!==null){
+            if(search!==null){
+                axios.post('http://localhost:8080/auth/chat/searchmessages',{
+                id:id1,
+                id2:id,
+                query:search
+                }).then((response)=>{
+                    setMessages(response.data.data)
+                })
+            }else{
+                axios.post('http://localhost:8080/auth/chat/getmessages',{
+                id:id1,
+                id2:id
+                }).then((response)=>{
+                    setMessages(response.data.data)
+                })
+            }
         }
     },[search])
 

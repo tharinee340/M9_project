@@ -52,10 +52,12 @@ const ShowFriend = () => {
     const id = JSON.parse(localStorage.getItem('user'))
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
-        .then((response)=>{
-            setFriends(response.data)
-        })
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            .then((response)=>{
+                setFriends(response.data)
+            })
+        }
     },[])
 
     return (
