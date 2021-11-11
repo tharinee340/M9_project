@@ -97,6 +97,15 @@ const ChatForm = () => {
         })
     }
 
+    socket.on('new_message',()=>{
+        axios.post('http://localhost:8080/auth/chat/getmessages',{
+            id:id1,
+            id2:id
+        }).then((response)=>{
+            setMessages(response.data.data)
+        })
+    })
+
     return (
         <>
             <Container>

@@ -87,10 +87,8 @@ exports.confirm = (req,res) => {
 exports.delete = (req,res) => {
     const id = req.params.id
     const id2 = req.params.id2
-    console.log('id1', id);
-    console.log('id2', id2);
-    const sql = `DELETE FROM friends WHERE user_id1 = ? AND user_id2 = ?`
-    database.query(sql,[id,id2],(err,results)=>{
+    const sql = `DELETE FROM friends WHERE id = ?`
+    database.query(sql,[id],(err,results)=>{
         if(err) throw err
 
         return res.status(200).json({message:'Deleted friends successfully!'})

@@ -14,5 +14,6 @@ io.on('connection',socket=>{
         database.query('INSERT INTO messages (user_id1,user_id2,message,sendtime) VALUES (?,?,?,now())',[id1,id2,message],(err,results)=>{
             if(err) throw err
         })
+        io.emit('new_message','hi')
     })
 })
