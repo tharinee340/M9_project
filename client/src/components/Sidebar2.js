@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router'
+import axios from 'axios'
 
 const Container = styled.div`
     width: 320px;
@@ -61,7 +63,18 @@ const FriendContainer = styled.div`
     border-bottom: 1px solid #3D4450;
     padding: 20px 0;
 `
+
+
 const Sidebar2 = () => {
+    const [friends, setFriends] = useState([])
+    const id = JSON.parse(localStorage.getItem('user'))
+    useEffect(() => {
+        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+            setFriends(res.data)
+        })
+    }, [])
+    
+
     return (
         <>
             <Container>
@@ -72,34 +85,19 @@ const Sidebar2 = () => {
                     <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
                 </Request>
                     <Title>My Friends</Title>
-    
-                <FriendContainer>
-                    <Link to="/chat/1"><Friend>
-                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend></Friend>  
-                    </Link> 
-                </FriendContainer>
 
-                <FriendContainer>
-                    <Link to="/chat/1"><Friend>
-                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend></Friend>  
-                    </Link> 
-                </FriendContainer>
-
-                <FriendContainer>
-                    <Link to="/chat/1"><Friend>
-                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                    <NameFriend>Cartoon</NameFriend></Friend>  
-                    </Link> 
-                </FriendContainer>
-
-            
-               
-               
-                
-
-                
+                {friends.length>0 ? (
+                    friends.map((user)=>(
+                        <FriendContainer>
+                            <Link to={`/chat/${user.id}`}><Friend>
+                            <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
+                            <NameFriend>{user.username}</NameFriend></Friend>  
+                            </Link> 
+                        </FriendContainer>
+                    ))
+                ):(
+                    <p></p>
+                )}                
             </Container>
             
         </>

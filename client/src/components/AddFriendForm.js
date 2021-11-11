@@ -66,6 +66,7 @@ const AddFriendForm = () => {
         })
     }
 
+
     // const onAddFriend = (id) => {
     //     axios.post('http://localhost:5000/auth/friend/add',{
 
@@ -87,6 +88,18 @@ const AddFriendForm = () => {
     //         }
     //     })
     // }
+    const id = JSON.parse(localStorage.getItem('user'))
+
+    function sendAdd(id2) {
+        axios.post('http://localhost:8080/auth/friend/add',{
+            id: id.id,
+            id2: id2
+        }).then((res) => {
+            alert(res.data.message)
+        }).catch((err) => {
+            alert(err.response.data.message)
+        })
+    }
 
     return (
         <>
@@ -110,7 +123,10 @@ const AddFriendForm = () => {
                                 <FriendImage src={result.imageURL}/>
                                 <Name>{result.username}</Name>
                             </Friend>
-                            <Button variant="primary" style={{width: 100,  marginTop: 30, height:45}}>Add</Button>
+                            <Button variant="primary" 
+                                style={{width: 100,  marginTop: 30, height:45}}
+                                onClick={()=> sendAdd(result.id)}
+                            >Add</Button>
                         </FriendContainer>
                     ))
                 ):(
