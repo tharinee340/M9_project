@@ -2,6 +2,7 @@ import React, { useEffect , useState } from 'react'
 import styled from 'styled-components'
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
+import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -50,7 +51,7 @@ const ShowFriend = () => {
     const [friends, setFriends] = useState([])
 
     const id = JSON.parse(localStorage.getItem('user'))
-
+    
     useEffect(()=>{
         if(id!==null){
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
@@ -59,6 +60,13 @@ const ShowFriend = () => {
             })
         }
     },[])
+
+    const onDelete = (idd) => {
+        axios.get(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
+            .then((response)=>{
+                console.log(response)
+            })
+    }
 
     return (
         <>
@@ -73,6 +81,7 @@ const ShowFriend = () => {
                                 <Name>{friend.username}</Name>
                             </Friend>
                             <Icon>
+                                <DeleteIcon style={{fontSize: 35, marginRight: 30}} onClick={onDelete(friend.id)}/>
                                 <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
                                 <VideocamIcon style={{fontSize: 40}}/>
                             </Icon>

@@ -52,6 +52,7 @@ const TextChatRight = styled.p`
     background-color: blue;
     margin-right: 15px;
 `
+const socket = io("http://localhost:8081")
 
 const ChatForm = () => {
 
@@ -59,45 +60,35 @@ const ChatForm = () => {
 
     const search = useSelector(state=>state.search)
 
-    const socket = io("http://localhost:8081")
-
     let user = JSON.parse(localStorage.getItem('user'))
     let id1 = user.id
 
     const [messages,setMessages] = useState([])
 
+    const [text,setText] = useState("")
+
     useEffect(()=>{
-        if(id1!==null){
-            if(search!==null){
-                axios.post('http://localhost:8080/auth/chat/searchmessages',{
-                id:id1,
-                id2:id,
-                query:search
-                }).then((response)=>{
-                    setMessages(response.data.data)
-                })
-            }else{
-                axios.post('http://localhost:8080/auth/chat/getmessages',{
-                id:id1,
-                id2:id
-                }).then((response)=>{
-                    setMessages(response.data.data)
-                })
-            }
-        }
-    },[search])
+        axios.post('http://localhost:8080/auth/chat/getmessages',{
+        id:id1,
+        id2:id
+        }).then((response)=>{
+            setMessages(response.data.data)
+        })
+    },[id])
 
     const sendMessage = () => {
-        let message = document.getElementById('message').value
-        document.getElementById('message').value = ''
-        socket.emit('new_message',id1,id,message)
+        socket.emit('new_message',id1,id,text)
+    }
+
+    socket.on('sent_message',()=>{
+        console.log('messaged')
         axios.post('http://localhost:8080/auth/chat/getmessages',{
             id:id1,
             id2:id
         }).then((response)=>{
             setMessages(response.data.data)
         })
-    }
+    })
 
     return (
         <>
@@ -118,6 +109,7 @@ const ChatForm = () => {
                     id='message'
                     style={{height: 45}}
                     placeholder="Type your message here ..."
+                    onChange={(e)=>{setText(e.target.value)}}
                     />
                     <Button style={{backgroundColor: "white", color: "gray",border:"none", height: 45}} onClick={sendMessage}><SendIcon/></Button>
                 </InputGroup>
