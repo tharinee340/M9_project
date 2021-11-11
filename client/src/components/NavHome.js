@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     width: 78vw;
@@ -42,7 +43,7 @@ const NavHome = () => {
         <>
         <Container>
             <Title>My Friends</Title>
-            <Button style={{height: 40}}>Add Friend</Button>
+            <Link to="/addFriend"><Button style={{height: 40}}>Add Friend</Button></Link>
             <Text>All Friends</Text>
             <Text2>Online</Text2>
 
