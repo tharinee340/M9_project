@@ -58,7 +58,7 @@ const AddFriendForm = () => {
     const history = useHistory()
 
     const onSearch = () => {
-        axios.post('http://localhost:5000/auth/friend/search',{
+        axios.post('http://localhost:8080/auth/friend/search',{
             query:query
         }).then((response)=>{
             setResults(response.data.data)
@@ -67,7 +67,7 @@ const AddFriendForm = () => {
     }
 
     // const onAddFriend = (id) => {
-    //     axios.post('http://localhost:5000/auth/friend/add',{
+    //     axios.post('http://localhost:8080/auth/friend/add',{
 
     //     }).then((response)=>{
     //         if(!response.data.error){
