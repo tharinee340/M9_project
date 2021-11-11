@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 
 const Container = styled.div`
@@ -66,14 +66,17 @@ const FriendContainer = styled.div`
 
 
 const Sidebar2 = () => {
+
     const [friends, setFriends] = useState([])
     const id = JSON.parse(localStorage.getItem('user'))
-    useEffect(() => {
-        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
-            setFriends(res.data)
-        })
-    }, [])
     
+    useEffect(() => {
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+                setFriends(res.data)
+            })
+        }
+    }, [])
 
     return (
         <>
@@ -84,7 +87,7 @@ const Sidebar2 = () => {
                 <Request>
                     <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
                 </Request>
-                    <Title>My Friends</Title>
+                    <Link to="/home" style={{textDecoration: "none"}}><Title>My Friends</Title></Link>
 
                 {friends.length>0 ? (
                     friends.map((user)=>(

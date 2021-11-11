@@ -40,7 +40,7 @@ exports.search = (req,res) => {
 // show list friend of userid1
 exports.list = (req,res) => {
     const id = req.params.id
-    const sql = 'SELECT * FROM friends INNER JOIN users ON friends.user_id2 = users.id WHERE user_id1 = ?'
+    const sql = `SELECT * FROM friends INNER JOIN users ON friends.user_id2 = users.id WHERE user_id1 = ? AND status = 'accepted'`
     database.query(sql, [id], (err,result) => {
         if(err) throw err
 
