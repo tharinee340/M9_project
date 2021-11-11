@@ -6,7 +6,7 @@ const io = require('socket.io')(5001, {
     }
 })
 
-app.listen(5000)
+app.listen(8080)
 
 io.on('connection',socket=>{
     console.log(socket.id)
