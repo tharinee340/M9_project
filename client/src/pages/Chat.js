@@ -1,8 +1,9 @@
 import React from 'react'
-import NavChat from '../components/NavChat'
+
 import Sidebar from '../components/Sidebar'
 import styled from 'styled-components'
 import ChatForm from '../components/ChatForm'
+import NavChat from '../components/NavChat'
 
 const Container = styled.div`
     display: flex;
