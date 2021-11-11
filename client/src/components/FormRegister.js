@@ -75,7 +75,7 @@ const FormRegister = () => {
     function onClick(event){
         event.preventDefault()
         if(password===confirmPass){
-                axios.post('http://localhost:8080/auth/users/reg',{
+                axios.post('http://localhost:5000/auth/users/reg',{
                     username:username,
                     password:password,
                     email:email
