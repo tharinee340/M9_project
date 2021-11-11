@@ -50,7 +50,7 @@ const ShowFriend = () => {
     const [friends, setFriends] = useState([])
 
     useEffect(()=>{
-        axios.post('http://localhost:5000/auth/friend/list',{
+        axios.post('http://localhost:8080/auth/friend/list',{
 
         }).then((response)=>{
             if(!response.data.error){

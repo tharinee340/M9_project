@@ -1,9 +1,11 @@
-import React from 'react'
+import React , {useState} from 'react'
 import styled from 'styled-components'
 import {InputGroup,FormControl, Button } from 'react-bootstrap'
 import SearchIcon from '@mui/icons-material/Search';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setsearch } from '../actions';
 
 const Container = styled.div`
     width: 78vw;
@@ -35,6 +37,15 @@ const Btn = styled.div`
     }
 `
 const NavChat = () => {
+
+    const dispatch = useDispatch()
+
+    const [query, setQuery] = useState("")
+
+    const onSearch = () => {
+        dispatch(setsearch(query))
+    }
+
     return (
         <>
             <Container>
@@ -44,8 +55,10 @@ const NavChat = () => {
                     <FormControl
                         style={{height: 40}}
                         placeholder="Find Chat History"
+                        id="search"
+                        onChange={(e) => setQuery(e.target.value)}
                     />
-                    <Button style={{height: 40, backgroundColor: 'white', border: 'none', color: 'gray'}}><SearchIcon/></Button>
+                    <Button style={{height: 40, backgroundColor: 'white', border: 'none', color: 'gray'}} onClick={onSearch}><SearchIcon/></Button>
                 </InputGroup>
                 <Link to="/call/1"><Btn><VideocamIcon style={{fontSize: 40}}/></Btn></Link>
                 </Right>

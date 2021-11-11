@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
-
+import { io } from 'socket.io-client'
+import { useParams } from 'react-router';
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const Container = styled.div`
     width: 90%;
@@ -51,29 +54,70 @@ const TextChatRight = styled.p`
 `
 
 const ChatForm = () => {
+
+    const {id} = useParams()
+
+    const search = useSelector(state=>state.search)
+
+    const socket = io("http://localhost:8081")
+
+    let user = JSON.parse(localStorage.getItem('user'))
+    let id1 = user.id
+
+    const [messages,setMessages] = useState([])
+
+    useEffect(()=>{
+        if(search!==null){
+            axios.post('http://localhost:8080/auth/chat/searchmessages',{
+            id:id1,
+            id2:id,
+            query:search
+            }).then((response)=>{
+                setMessages(response.data.data)
+            })
+        }else{
+            axios.post('http://localhost:8080/auth/chat/getmessages',{
+            id:id1,
+            id2:id
+            }).then((response)=>{
+                setMessages(response.data.data)
+            })
+        }
+    },[search])
+
+    const sendMessage = () => {
+        let message = document.getElementById('message').value
+        document.getElementById('message').value = ''
+        socket.emit('new_message',id1,id,message)
+        axios.post('http://localhost:8080/auth/chat/getmessages',{
+            id:id1,
+            id2:id
+        }).then((response)=>{
+            setMessages(response.data.data)
+        })
+    }
+
     return (
         <>
             <Container>
                 <ChatContainer>
-                    
-                    <ChatLeft><TextChatLeft>Hi</TextChatLeft></ChatLeft>
-                    
-                    <ChatRight><TextChatRight>Hello How are you</TextChatRight></ChatRight>
-                    
-
-                    <ChatLeft><TextChatLeft>I'm finddd, how are you</TextChatLeft></ChatLeft>
-
-                    <ChatRight><TextChatRight>Not bad.</TextChatRight></ChatRight>
-                
+                    {messages.map((message)=>{
+                        if(message.user_id1===id1){
+                            return <ChatRight><TextChatRight>{message.message}</TextChatRight></ChatRight>
+                        }else{
+                            return <ChatLeft><TextChatLeft>{message.message}</TextChatLeft></ChatLeft>
+                        }
+                    })}
                 </ChatContainer>
                 <InputContainer>
                 
                 <InputGroup className="mb-3" style={{width: "80%"}}>
                     <FormControl
+                    id='message'
                     style={{height: 45}}
                     placeholder="Type your message here ..."
                     />
-                    <Button style={{backgroundColor: "white", color: "gray",border:"none", height: 45}}><SendIcon/></Button>
+                    <Button style={{backgroundColor: "white", color: "gray",border:"none", height: 45}} onClick={sendMessage}><SendIcon/></Button>
                 </InputGroup>
                 </InputContainer>
                 
