@@ -10,4 +10,6 @@ route.post('/search',friendController.search)
 
 route.post('/confirm',friendController.confirm)
 
+route.post('/delete',friendController.delete)
+
 module.exports = route
