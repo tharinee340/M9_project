@@ -49,13 +49,12 @@ const ShowFriend = () => {
 
     const [friends, setFriends] = useState([])
 
-    useEffect(()=>{
-        axios.post('http://localhost:8080/auth/friend/list',{
+    const id = JSON.parse(localStorage.getItem('user'))
 
-        }).then((response)=>{
-            if(!response.data.error){
-                setFriends(response.data.data)
-            }
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+        .then((response)=>{
+            setFriends(response.data)
         })
     },[])
 
@@ -68,7 +67,7 @@ const ShowFriend = () => {
                     friends.map((friend)=>(
                         <FriendContainer>
                             <Friend>
-                                <FriendImage src={friend.imageURL}/>
+                                <FriendImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg"/>
                                 <Name>{friend.username}</Name>
                             </Friend>
                             <Icon>
