@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import {Row, Col, InputGroup, FormControl, Button} from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
 import CallEndIcon from '@mui/icons-material/CallEnd';
+import { SocketContextCall } from '../ContextCall';
 
 const Container = styled.div`
     height: 91vh;
@@ -84,16 +85,31 @@ const EndCall = styled.div`
     }
 
 `
+
+
 const VideoForm = () => {
+
+
+    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call, callUser, leaveCall, setName} = useContext(SocketContextCall);
+    const [idFriend, setidFriend] = useState('')
+
+
     return (
         <>
+        
+
             <Container>
                 <Row >
                     <Col md={9} style={{height: "100%"}}>
                         <Left>
                             <VideoContainer>
-                                <Video>Video</Video>
-                                <Video>Video</Video>
+                                
+                                
+                                { stream && <Video>{name || 'My Name'}<video style={{width: "100%"}} playsInline muted ref={myVideo} autoPlay/></Video> }
+                                
+                                
+                                { callAccepted &&  !callEnded && <Video>{call.name || 'Friend Name'}<video style={{width: "100%"}} playsInline muted ref={userVideo} autoPlay/></Video> }
+
                             </VideoContainer>
                             <BtnContainer>
                                 <EndCall><CallEndIcon style={{fontSize: 60, padding: 10}}/></EndCall>
@@ -140,7 +156,11 @@ const VideoForm = () => {
                     style={{height: 45}}
                     placeholder="Type your message here ..."
                     />
-                    <Button style={{backgroundColor: "white", color: "gray",border:"none", height: 45}}><SendIcon/></Button>
+                    <Button 
+                        style={{backgroundColor: "white", color: "gray",border:"none", height: 45}}
+                        onClick={ leaveCall }
+                    >
+                        <SendIcon/></Button>
                 </InputGroup>
                 
                     </Col>

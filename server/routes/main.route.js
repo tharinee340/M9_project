@@ -9,4 +9,5 @@ route.use('/friend', friend)
 
 route.use('/chat', chat)
 
+
 module.exports = route
