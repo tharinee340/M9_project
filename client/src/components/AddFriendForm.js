@@ -4,6 +4,7 @@ import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router'
+import { io } from 'socket.io-client'
 
 const Container = styled.div`
     width: 90%;
@@ -49,6 +50,8 @@ const Name = styled.h5`
     margin-left: 20px;
 `
 
+const socket = io("http://localhost:8081")
+
 const AddFriendForm = () => {
 
     //ตั้งให้ถ้า useState (ตัวที่เก็บชื่อ) == 0 แสดง not found
@@ -66,28 +69,6 @@ const AddFriendForm = () => {
         })
     }
 
-
-    // const onAddFriend = (id) => {
-    //     axios.post('http://localhost:5000/auth/friend/add',{
-
-    //     }).then((response)=>{
-    //         if(!response.data.error){
-    //             Swal.fire({
-    //                 icon: 'success',
-    //                 title: 'Add Success!',
-    //                 showConfirmButton: false,
-    //                 timer: 1500
-    //             })
-    //         }else{
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Add Error!',
-    //                 showConfirmButton: false,
-    //                 timer: 1500
-    //             })
-    //         }
-    //     })
-    // }
     const id = JSON.parse(localStorage.getItem('user'))
 
     function sendAdd(id2) {
@@ -101,6 +82,7 @@ const AddFriendForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             })
+            socket.emit('new_request')
         }).catch((err) => {
             Swal.fire({
                 icon: 'error',
@@ -110,6 +92,16 @@ const AddFriendForm = () => {
             })
         })
     }
+
+    socket.on('accept_request',()=>{
+        if(id!==null){
+            axios.post('http://localhost:8080/auth/friend/search',{
+                query:query
+            }).then((response)=>{
+                setResults(response.data.data)
+            })
+        }
+    })
 
     return (
         <>

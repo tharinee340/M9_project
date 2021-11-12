@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { io } from 'socket.io-client'
+import ForumIcon from '@mui/icons-material/Forum';
 
 const Container = styled.div`
     width: 90%;
@@ -69,6 +71,8 @@ const Time = styled.span`
 `
 const BtnContainer = styled.div``
 
+const socket = io("http://localhost:8081")
+
 const RequestForm = () => {
     const [requests, setRequests] = useState([])
     const id = JSON.parse(localStorage.getItem('user'))
@@ -92,6 +96,7 @@ const RequestForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             })
+            socket.emit('accept_request')
             window.location.reload(true)
         }).catch((err)=>{
             Swal.fire({
@@ -122,6 +127,22 @@ const RequestForm = () => {
         })
     }
 
+    socket.on('accept_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                setRequests(res.data)
+            })
+        }
+    })
+
+    socket.on('new_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                setRequests(res.data)
+            })
+        }
+    })
+
     return (
         <>
             <Container>
@@ -148,43 +169,6 @@ const RequestForm = () => {
                 ):(
                     <p>No friend request</p>
                 )}                
-
-
-
-               
-
-                {/* <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
-                        <TextContainer>
-                            <List>
-                                <Name>Cartoon</Name>
-                                <Date>10.11.23<Time>11.00</Time></Date>
-                            </List>
-                        </TextContainer>
-                    </Friend>
-                    <BtnContainer>
-                        <Button variant="primary" style={{width: 100, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100, marginTop: 30, height:45}}>Delete</Button>
-                    </BtnContainer>
-                </FriendContainer>
-
-                <FriendContainer>
-                    <Friend>
-                        <FriendImage src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
-                        <TextContainer>
-                            <List>
-                                <Name>Cartoon</Name>
-                                <Date>10.11.23<Time>11.00</Time></Date>
-                            </List>
-                        </TextContainer>
-                    </Friend>
-                    <BtnContainer>
-                        <Button variant="primary" style={{width: 100, marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                        <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
-                    </BtnContainer>
-                </FriendContainer> */}
-
                 
             </Container>
             

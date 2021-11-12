@@ -71,7 +71,6 @@ exports.listrequest = (req,res) => {
 exports.confirm = (req,res) => {
     const id = req.body.id
     const id2 = req.body.id2
-    console.log(id,id2)
     const sql = 'SELECT * FROM friends WHERE (user_id1 = ? AND user_id2 = ?) OR (user_id1 = ? AND user_id2 = ?)'
     database.query(sql,[id,id2,id2,id],(err,results)=>{
         if(err) throw err

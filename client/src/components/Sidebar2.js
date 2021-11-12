@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 
 const Container = styled.div`
     width: 320px;
@@ -64,6 +65,7 @@ const FriendContainer = styled.div`
     padding: 20px 0;
 `
 
+const socket = io("http://localhost:8081")
 
 const Sidebar2 = () => {
 
@@ -79,6 +81,14 @@ const Sidebar2 = () => {
             })
         }
     }, [])
+
+    socket.on('accept_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+                setFriends(res.data)
+            })
+        }
+    })
 
     return (
         <>
