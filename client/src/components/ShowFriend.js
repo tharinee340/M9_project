@@ -4,6 +4,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import { io } from 'socket.io-client'
 import Swal from 'sweetalert2'
 
 const Container = styled.div`
@@ -47,6 +48,9 @@ const Name = styled.h5`
     margin-top: 25px;
     margin-left: 20px;
 `
+
+const socket = io("http://localhost:8081")
+
 const ShowFriend = () => {
 
     const [friends, setFriends] = useState([])
@@ -75,6 +79,15 @@ const ShowFriend = () => {
                 window.location.reload(true)
             })
     }
+
+    socket.on('accept_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            .then((response)=>{
+                setFriends(response.data)
+            })
+        }
+    })
 
     return (
         <>
