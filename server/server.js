@@ -19,8 +19,13 @@ io.on('connection',socket=>{
     socket.on('accept_request',()=>{
         io.emit('accept_request')
     })
+
     socket.on('new_request',()=>{
         io.emit('new_request')
+    })
+    
+    socket.on('delete_event',(idd)=>{
+        io.emit('delete_event',(idd))
     })
 
     //vd call
