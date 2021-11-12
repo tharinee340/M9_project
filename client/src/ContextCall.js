@@ -1,13 +1,14 @@
 import React, {useState, useEffect, createContext, useRef} from 'react'
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
+import { useHistory } from 'react-router'
 
 const SocketContextCall = createContext();
 
 const socket = io('http://localhost:8081')
 
 const ContextCallProvider = ({children}) => {
-    const [stream, setStream] = useState(null);
+    // const [stream, setStream] = useState(null);
     const [me, setMe] = useState('')
     const [call, setCall] = useState('')
     const [callAccepted, setCallAccepted] = useState(false)
@@ -19,15 +20,9 @@ const ContextCallProvider = ({children}) => {
     const userVideo = useRef();
     const connectionRef = useRef();
 
+    const history = useHistory()
+
     useEffect(() => {
-        //ใช้กล้องกับไมค์
-         navigator.mediaDevices.getUserMedia({ video: true, audio: true})
-         .then((currentStream) => {
-            setStream(currentStream);
-
-            myVideo.current.srcObject = currentStream;
-
-         })
 
          socket.on('me', (id) => setMe(id));
          socket.on('calluser', ({ from, name: callerName, signal}) => {
@@ -37,7 +32,7 @@ const ContextCallProvider = ({children}) => {
     }, []);
 
 
-    const answerCall = () => {
+    const answerCall = (stream) => {
         setCallAccepted(true)
         
         const peer = new Peer({ initiator: false, trickle: false, stream });
@@ -56,7 +51,7 @@ const ContextCallProvider = ({children}) => {
         connectionRef.current = peer;
     }
 
-    const callUser = (id) => {
+    const callUser = (id, stream) => {
 
         const peer = new Peer({ initiator: true, trickle: false, stream });
 
@@ -76,12 +71,16 @@ const ContextCallProvider = ({children}) => {
         connectionRef.current = peer;
     }
 
-    const leaveCall = () => {
+    const leaveCall = (id) => {
 
         setCallEnded(true);
-        connectionRef.current.distroy();
+        // connectionRef.current.destroy();
 
-        window.location.reload();
+        window.location.reload()
+        // history.push(`/chat/:${id}`)
+        // history.push('/home')
+
+        //อาจใช้ useHistory มาช่วยให้เปลี่ยนไปอีกหน้่แล้วค่อย reload window
 
     }
 
@@ -91,7 +90,7 @@ const ContextCallProvider = ({children}) => {
             callAccepted,
             myVideo,
             userVideo,
-            stream,
+            
             name,
             setName,
             callEnded,
