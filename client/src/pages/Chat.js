@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ChatForm from '../components/ChatForm'
 import NavChat from '../components/NavChat'
 import { useHistory } from 'react-router'
+import { ContextCallProvider } from '../ContextCall'
 
 const Container = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ const Chat = () => {
     }
     return (
         <>
+        <ContextCallProvider>
             <Container>
                 <Sidebar/>
                 <Content>
@@ -29,7 +31,7 @@ const Chat = () => {
                     <ChatForm/>
                 </Content>
             </Container>
-            
+        </ContextCallProvider>    
         </>
     )
 }

@@ -1,9 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {Row, Col, InputGroup, FormControl, Button} from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import { SocketContextCall } from '../ContextCall';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router'
 
 const Container = styled.div`
     height: 91vh;
@@ -89,10 +91,31 @@ const EndCall = styled.div`
 
 const VideoForm = () => {
 
+    const id = useParams()
+    console.log(id.id)
+    const [stream, setStream] = useState(null);
+    const history = useHistory()
 
-    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call, callUser, leaveCall, setName} = useContext(SocketContextCall);
-    const [idFriend, setidFriend] = useState('')
+    const { name, callAccepted, myVideo, userVideo, callEnded, call, callUser, leaveCall, setName} = useContext(SocketContextCall);
+    useEffect(() => {
 
+        //use camera and microphone
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true})
+         .then((currentStream) => {
+            setStream(currentStream);
+
+            myVideo.current.srcObject = currentStream;
+
+         })
+    },[])
+
+    const handleEndCall = () => {
+        leaveCall(id.id)
+        console.log(id.id)
+        history.push(`/chat/${id.id}`)
+            window.location.reload()
+        
+    }
 
     return (
         <>
@@ -112,7 +135,7 @@ const VideoForm = () => {
 
                             </VideoContainer>
                             <BtnContainer>
-                                <EndCall><CallEndIcon style={{fontSize: 60, padding: 10}}/></EndCall>
+                                <EndCall><CallEndIcon style={{fontSize: 60, padding: 10}} onClick={handleEndCall}/></EndCall>
                             </BtnContainer>
                             
                         </Left>
@@ -158,7 +181,7 @@ const VideoForm = () => {
                     />
                     <Button 
                         style={{backgroundColor: "white", color: "gray",border:"none", height: 45}}
-                        onClick={ leaveCall }
+                        
                     >
                         <SendIcon/></Button>
                 </InputGroup>

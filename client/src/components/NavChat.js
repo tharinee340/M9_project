@@ -40,9 +40,11 @@ const Btn = styled.div`
     }
 `
 const NavChat = () => {
-    const {id} = useParams()
-    
-    const { callUser } = useContext(SocketContextCall);
+
+    const { callUser, callAccepted, callEnded } = useContext(SocketContextCall);
+    const {id} = useParams()    
+
+
     const dispatch = useDispatch()
 
     const [query, setQuery] = useState("")
@@ -72,7 +74,8 @@ const NavChat = () => {
                     />
                     <Button style={{height: 40, backgroundColor: 'white', border: 'none', color: 'gray'}} onClick={onSearch}><SearchIcon/></Button>
                 </InputGroup>
-                <Link to="/call/1" onClick={ () => callUser(id)}><Btn><VideocamIcon style={{fontSize: 40}}/></Btn></Link>
+                
+                <Link to="/call/1" onClick={ () => callUser(id)}><Btn><VideocamIcon style={{fontSize: 40}} /></Btn></Link>
                 </Right>
             </Container>
         </>
