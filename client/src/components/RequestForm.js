@@ -91,7 +91,7 @@ const RequestForm = () => {
             id2:idd
         }).then((response)=>{
             socket.emit('accept_request')
-            window.location.reload(true)
+            setRequests([])
         }).catch((err)=>{
             Swal.fire({
                 icon: 'error',
@@ -105,7 +105,7 @@ const RequestForm = () => {
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((response)=>{
             socket.emit('delete_event')
-            window.location.reload(true)
+            setRequests([])
         }).catch((err)=>{
             Swal.fire({
                 icon: 'error',

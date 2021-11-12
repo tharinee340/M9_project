@@ -54,7 +54,7 @@ const socket = io("http://localhost:8081")
 const ShowFriend = () => {
 
     const [friends, setFriends] = useState([])
-
+    
     const id = JSON.parse(localStorage.getItem('user'))
     
     useEffect(()=>{
@@ -70,7 +70,7 @@ const ShowFriend = () => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
             .then((res)=>{
                 socket.emit('delete_event')
-                window.location.reload(true)
+                setFriends(['delete'])
             }).catch((err) => {
 
             })

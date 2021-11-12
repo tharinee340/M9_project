@@ -80,14 +80,10 @@ const Sidebar2 = () => {
                 setFriends(res.data)
             })
         }
-    }, [])
+    }, [friends])
 
     socket.on('delete_event',()=>{
-        if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
-                setFriends(res.data)
-            })
-        }
+        setFriends([])
     })
 
     socket.on('accept_request',()=>{
