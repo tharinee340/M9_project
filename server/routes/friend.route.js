@@ -12,6 +12,6 @@ route.post('/search',friendController.search)
 
 route.post('/confirm',friendController.confirm) 
 
-route.delete('/delete/:id',friendController.delete)
+route.delete('/delete/:id/:id2',friendController.delete)
 
 module.exports = route

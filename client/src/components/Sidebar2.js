@@ -67,6 +67,8 @@ const FriendContainer = styled.div`
 
 const Sidebar2 = () => {
 
+    const history = useHistory()
+
     const [friends, setFriends] = useState([])
     const id = JSON.parse(localStorage.getItem('user'))
     
@@ -84,7 +86,7 @@ const Sidebar2 = () => {
                 <Profile>
                     <ProfileImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg"></ProfileImage>
                 </Profile>
-                {<Title>{id.username}</Title>}
+                {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>
                     <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
                 </Request>
@@ -93,7 +95,7 @@ const Sidebar2 = () => {
                 {friends.length>0 ? (
                     friends.map((user)=>(
                         <FriendContainer>
-                            <Link to={`/chat/${user.id}`}><Friend>
+                            <Link to={`/chat/${user.id}`} style={{textDecoration:'none'}}><Friend>
                             <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
                             <NameFriend>{user.username}</NameFriend></Friend>  
                             </Link> 

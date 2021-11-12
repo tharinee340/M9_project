@@ -58,8 +58,6 @@ const ChatForm = () => {
 
     const {id} = useParams()
 
-    const search = useSelector(state=>state.search)
-
     let user = JSON.parse(localStorage.getItem('user'))
     let id1 = user.id
 

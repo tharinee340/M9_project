@@ -71,15 +71,16 @@ exports.listrequest = (req,res) => {
 exports.confirm = (req,res) => {
     const id = req.body.id
     const id2 = req.body.id2
-    const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND user_id2 = ?'
-    database.query(sql,[id,id2],(err,results)=>{
+    console.log(id,id2)
+    const sql = 'SELECT * FROM friends WHERE (user_id1 = ? AND user_id2 = ?) OR (user_id1 = ? AND user_id2 = ?)'
+    database.query(sql,[id,id2,id2,id],(err,results)=>{
         if(err) throw err
         let user_id = results[0].id
         database.query(`UPDATE friends SET status = 'accepted', friends_since = now() WHERE id = ?`,[user_id],(err,results)=>{
             if(err) throw err
             
-            const sql2 = 'INSERT INTO friends (user_id1, user_id2, status, friends_since) VALUES (?, ?, ?, ?)'
-            database.query(sql2,[id2, id, "accepted", now()], (err,result) => {
+            const sql2 = 'INSERT INTO friends (user_id1, user_id2, status, friends_since) VALUES (?, ?, ?, now())'
+            database.query(sql2,[id, id2, "accepted"], (err,result) => {
                 if(err) throw err
 
                 return res.status(200).json({message:'Add friend successfully!'})
@@ -91,13 +92,10 @@ exports.confirm = (req,res) => {
 exports.delete = (req,res) => {
     const id = req.params.id
     const id2 = req.params.id2
-    const sql = `DELETE FROM friends WHERE user_id1 = ? AND user_id2 = ?`
-    database.query(sql,[id,id2],(err,results)=>{
+    const sql = `DELETE FROM friends WHERE (user_id1 = ? AND user_id2 = ?) OR (user_id1 = ? AND user_id2 = ?)`
+    database.query(sql,[id,id2,id2,id],(err,results)=>{
         if(err) throw err 
-        database.query(sql,[id2,id],(err,results)=>{
-            if(err) throw err
-    
-            return res.status(200).json({message:'Delete successfully!'})
-        })
+
+        return res.status(200).json({message:'Delete successfully!'})
     })
 }

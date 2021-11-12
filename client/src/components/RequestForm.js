@@ -2,6 +2,7 @@ import React, { useEffect , useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
     width: 90%;
@@ -76,23 +77,55 @@ const RequestForm = () => {
         if(id !== null){
             axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
                 setRequests(res.data)
-                console.log(res.data);
             })
         }
     },[])
 
-    const onAccept = () => {
-
+    const onAccept = (idd) => {
+        axios.post('http://localhost:8080/auth/friend/confirm',{
+            id:id.id,
+            id2:idd
+        }).then((response)=>{
+            Swal.fire({
+                icon: 'success',
+                title: response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+            window.location.reload(true)
+        }).catch((err)=>{
+            Swal.fire({
+                icon: 'error',
+                title: err.response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
     }
 
-    const onDelete = () => {
-
+    const onDelete = (idd) => {
+        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((response)=>{
+            Swal.fire({
+                icon: 'success',
+                title: response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+            window.location.reload(true)
+        }).catch((err)=>{
+            Swal.fire({
+                icon: 'error',
+                title: err.response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
     }
 
     return (
         <>
             <Container>
-                <Title>You have 3 Requests</Title>
+                <Title>You have {requests.length} Requests</Title>
 
                 {requests.length>0 ? (
                     requests.map((user)=>(
@@ -107,8 +140,8 @@ const RequestForm = () => {
                                 </TextContainer>
                             </Friend>
                             <BtnContainer>
-                                <Button variant="primary" style={{width: 100,  marginTop: 30, height:45, marginRight: 20}}>Accept</Button>
-                                <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}}>Delete</Button>
+                                <Button variant="primary" style={{width: 100,  marginTop: 30, height:45, marginRight: 20}} onClick={()=>{onAccept(user.id)}}>Accept</Button>
+                                <Button variant="danger" style={{width: 100,  marginTop: 30, height:45}} onClick={()=>{onDelete(user.id)}}>Delete</Button>
                             </BtnContainer>
                         </FriendContainer>
                     ))

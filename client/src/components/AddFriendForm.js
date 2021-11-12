@@ -95,9 +95,19 @@ const AddFriendForm = () => {
             id: id.id,
             id2: id2
         }).then((res) => {
-            alert(res.data.message)
+            Swal.fire({
+                icon: 'success',
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }).catch((err) => {
-            alert(err.response.data.message)
+            Swal.fire({
+                icon: 'error',
+                title: err.response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
         })
     }
 
