@@ -1,10 +1,10 @@
-import React, { useEffect , useState } from 'react'
+import React, { useEffect , useState , useContext } from 'react'
 import styled from 'styled-components'
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
-import { io } from 'socket.io-client'
+import {SocketContext} from '../context/socket';
 import Swal from 'sweetalert2'
 
 const Container = styled.div`
@@ -49,9 +49,9 @@ const Name = styled.h5`
     margin-left: 20px;
 `
 
-const socket = io("http://localhost:8081")
-
 const ShowFriend = () => {
+
+    const socket = useContext(SocketContext);
 
     const [friends, setFriends] = useState([])
     
@@ -69,19 +69,19 @@ const ShowFriend = () => {
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
             .then((res)=>{
-                socket.emit('delete_event')
-                setFriends(['delete'])
+                // socket.emit('delete_event')
+                // setFriends(['delete'])
             }).catch((err) => {
-
+                if(err) throw err
             })
     }
 
-    socket.on('delete_event',()=>{
-        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
-            .then((response)=>{
-                setFriends(response.data)
-            })
-    })
+    // socket.on('delete_event',()=>{
+    //     axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+    //         .then((response)=>{
+    //             setFriends(response.data)
+    //         })
+    // })
 
     socket.on('accept_request',()=>{
         if(id!==null){

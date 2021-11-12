@@ -7,19 +7,21 @@ import Request from "./pages/Request";
 import Chat from "./pages/Chat";
 import VideoCall from "./pages/VideoCall";
 import './App.css'
+import {SocketContext, socket} from './context/socket'
  
 function App() {
   return (
     <>
+    <SocketContext.Provider value={socket}>
       <div className="App">
         <Router>
           <Switch>
             <Route Route path="/chat/:id">
               <Chat/>
             </Route>
-            <Route Route path="/call/:id">
+            {/* <Route Route path="/call/:id">
               <VideoCall/>
-            </Route>
+            </Route> */}
             <Route path="/register">
               <Register/>
             </Route>
@@ -39,6 +41,7 @@ function App() {
           </Switch>
         </Router>
       </div>
+      </SocketContext.Provider>
     </>
   );
 }

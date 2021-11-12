@@ -1,9 +1,9 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
-import { io } from 'socket.io-client'
+import {SocketContext} from '../context/socket';
 
 const Container = styled.div`
     width: 320px;
@@ -65,9 +65,9 @@ const FriendContainer = styled.div`
     padding: 20px 0;
 `
 
-const socket = io("http://localhost:8081")
-
 const Sidebar2 = () => {
+    
+    const socket = useContext(SocketContext);
 
     const history = useHistory()
 

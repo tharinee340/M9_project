@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
-import { io } from 'socket.io-client'
+import {SocketContext} from '../context/socket';
 import { useHistory, useParams } from 'react-router';
 import axios from 'axios'
 
@@ -59,9 +59,9 @@ const Timestamp = styled.p`
     margin-top: 9px;
 `
 
-const socket = io("http://localhost:8081")
-
 const ChatForm = () => {
+
+    const socket = useContext(SocketContext);
 
     const {id} = useParams()
 

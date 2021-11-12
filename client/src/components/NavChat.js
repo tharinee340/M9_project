@@ -40,7 +40,7 @@ const Btn = styled.div`
     }
 `
 const NavChat = () => {
-
+    
     const { callUser, callAccepted, callEnded } = useContext(SocketContextCall);
     const {id} = useParams()    
 

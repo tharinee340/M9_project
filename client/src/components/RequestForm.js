@@ -1,9 +1,9 @@
-import React, { useEffect , useState } from 'react'
+import React, { useEffect , useState , useContext } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { io } from 'socket.io-client'
+import {SocketContext} from '../context/socket';
 import ForumIcon from '@mui/icons-material/Forum';
 
 const Container = styled.div`
@@ -71,9 +71,10 @@ const Time = styled.span`
 `
 const BtnContainer = styled.div``
 
-const socket = io("http://localhost:8081")
-
 const RequestForm = () => {
+
+    const socket = useContext(SocketContext);
+
     const [requests, setRequests] = useState([])
     const id = JSON.parse(localStorage.getItem('user'))
 

@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import styled from 'styled-components'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router'
-import { io } from 'socket.io-client'
+import {SocketContext} from '../context/socket';
 
 const Container = styled.div`
     width: 90%;
@@ -50,10 +50,8 @@ const Name = styled.h5`
     margin-left: 20px;
 `
 
-const socket = io("http://localhost:8081")
-
 const AddFriendForm = () => {
-
+    const socket = useContext(SocketContext)
     //ตั้งให้ถ้า useState (ตัวที่เก็บชื่อ) == 0 แสดง not found
     const [query, setQuery] = useState("")
     const [results, setResults] = useState([])
