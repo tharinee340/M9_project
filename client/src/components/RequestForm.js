@@ -90,12 +90,6 @@ const RequestForm = () => {
             id:id.id,
             id2:idd
         }).then((response)=>{
-            Swal.fire({
-                icon: 'success',
-                title: response.data.message,
-                showConfirmButton: false,
-                timer: 1500
-            })
             socket.emit('accept_request')
             window.location.reload(true)
         }).catch((err)=>{
@@ -110,12 +104,7 @@ const RequestForm = () => {
 
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((response)=>{
-            Swal.fire({
-                icon: 'success',
-                title: response.data.message,
-                showConfirmButton: false,
-                timer: 1500
-            })
+            socket.emit('delete_event')
             window.location.reload(true)
         }).catch((err)=>{
             Swal.fire({
@@ -126,6 +115,12 @@ const RequestForm = () => {
             })
         })
     }
+
+    socket.on('delete_event',()=>{
+        axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                setRequests(res.data)
+            })
+    })
 
     socket.on('accept_request',()=>{
         if(id!==null){

@@ -67,20 +67,19 @@ const ShowFriend = () => {
     },[])
 
     const onDelete = (idd) => {
-        socket.emit('delete_event',idd)
+        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
+            .then((res)=>{
+                socket.emit('delete_event')
+                window.location.reload(true)
+            }).catch((err) => {
+
+            })
     }
 
-    socket.on('delete_event',(id2)=>{
-        console.log(id2);
-        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${id2}`)
-            .then((res)=>{
-                Swal.fire({
-                    icon: 'success',
-                    title: res.data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                window.location.reload(true)
+    socket.on('delete_event',()=>{
+        axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            .then((response)=>{
+                setFriends(response.data)
             })
     })
 

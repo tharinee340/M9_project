@@ -24,8 +24,8 @@ io.on('connection',socket=>{
         io.emit('new_request')
     })
     
-    socket.on('delete_event',(idd)=>{
-        io.emit('delete_event',(idd))
+    socket.on('delete_event',()=>{
+        io.emit('delete_event')
     })
 
     //vd call

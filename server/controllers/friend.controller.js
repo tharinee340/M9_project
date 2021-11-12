@@ -7,7 +7,6 @@ exports.add = (req,res) => {
     const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND user_id2 = ?'
     database.query(sql,[id, id2], (err, result) => {
         if(err) throw err
-        console.log(result);
         if(result.length == 1){
             if(result[0].status == 'pending'){
                 return res.status(400).json({message:'Request is on pending!'})

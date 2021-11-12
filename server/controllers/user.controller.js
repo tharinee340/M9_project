@@ -59,8 +59,10 @@ exports.getuser = function(req,res) {
     let id = req.params.id
     database.query('SELECT * FROM users WHERE id = ?',[id],(err,results)=>{
         if(err) throw err
-        return res.send({
-            data:results
-        })
+        if(results.length == 0){
+            return res.status(400).json({message:'No user'})
+        }else {
+            return res.status(200).json(results)
+        }
     })
 }

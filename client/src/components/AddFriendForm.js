@@ -65,6 +65,7 @@ const AddFriendForm = () => {
     }
 
     const onSearch = () => {
+        
         axios.post('http://localhost:8080/auth/friend/search',{
             query:query,
             username: username.username

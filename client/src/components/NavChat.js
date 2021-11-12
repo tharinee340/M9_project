@@ -51,8 +51,8 @@ const NavChat = () => {
     const [username, setUsername] = useState('')
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/auth/users/get_user/${id.id}`).then((response)=>{
-            setUsername(response.data.data[0].username)
+        axios.get(`http://localhost:8080/auth/users/get_user/${id}`).then((response)=>{
+            setUsername(response.data[0].username)
         })
     },[id])
 
