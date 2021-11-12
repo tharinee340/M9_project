@@ -7,9 +7,13 @@ exports.add = (req,res) => {
     const sql = 'SELECT * FROM friends WHERE user_id1 = ? AND user_id2 = ?'
     database.query(sql,[id, id2], (err, result) => {
         if(err) throw err
-
+        console.log(result);
         if(result.length == 1){
-            return res.status(400).json({message:'Add request is on pending!'})
+            if(result[0].status == 'pending'){
+                return res.status(400).json({message:'Request is on pending!'})
+            }else{
+                return res.status(400).json({message:'Already be friend!'})
+            }
         }else{
             const sql2 = `INSERT INTO friends (user_id1,user_id2,status) VALUES (?, ?, 'pending')`
             database.query(sql2,[id,id2],(err,results)=>{
@@ -26,8 +30,9 @@ exports.add = (req,res) => {
 // search all users 
 exports.search = (req,res) => {
     const query = req.body.query
-    const sql = 'SELECT * FROM users WHERE username LIKE ?'
-    const formatsql = database.format(sql, ['%'+query+'%'])
+    const username = req.body.username
+    const sql = 'SELECT * FROM users WHERE username LIKE ? AND username != ?'
+    const formatsql = database.format(sql, ['%'+query+'%',username])
     database.query(formatsql,(err,results)=>{
         if(err)throw err
         return res.send({

@@ -56,10 +56,15 @@ const AddFriendForm = () => {
     const [results, setResults] = useState([])
 
     const history = useHistory()
+    const username = JSON.parse(localStorage.getItem('user'))
+    if(!username){
+        history.push('/')
+    }
 
     const onSearch = () => {
         axios.post('http://localhost:8080/auth/friend/search',{
-            query:query
+            query:query,
+            username: username.username
         }).then((response)=>{
             setResults(response.data.data)
             history.push('/addFriend')

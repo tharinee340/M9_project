@@ -4,6 +4,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const Container = styled.div`
     width: 90%;
@@ -62,9 +63,16 @@ const ShowFriend = () => {
     },[])
 
     const onDelete = (idd) => {
-        axios.get(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
-            .then((response)=>{
-                console.log(response)
+        console.log(idd);
+        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
+            .then((res)=>{
+                Swal.fire({
+                    icon: 'success',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                window.location.reload(true)
             })
     }
 
@@ -81,7 +89,7 @@ const ShowFriend = () => {
                                 <Name>{friend.username}</Name>
                             </Friend>
                             <Icon>
-                                <DeleteIcon style={{fontSize: 35, marginRight: 30}} onClick={onDelete(friend.id)}/>
+                                <DeleteIcon style={{fontSize: 35, marginRight: 30}} onClick={() => onDelete(friend.id)}/>
                                 <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
                                 <VideocamIcon style={{fontSize: 40}}/>
                             </Icon>
