@@ -44,8 +44,8 @@ const NavHome = () => {
         <Container>
             <Title>My Friends</Title>
             <Link to="/addFriend"><Button style={{height: 40}}>Add Friend</Button></Link>
-            <Text>All Friends</Text>
-            <Text2>Online</Text2>
+            {/* <Text>All Friends</Text>
+            <Text2>Online</Text2> */}
 
         </Container>
             

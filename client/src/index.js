@@ -5,6 +5,8 @@ import App from "./App";
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import allReducer from './reducers'
+import { ContextCallProvider } from './ContextCall'
+
 
 const store = createStore(
   allReducer,
@@ -14,7 +16,9 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ContextCallProvider>
+          <App />
+        </ContextCallProvider>
       </BrowserRouter>
     </Provider>
   ,
