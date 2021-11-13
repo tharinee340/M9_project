@@ -9,6 +9,7 @@ import VideoCall from "./pages/VideoCall";
 import './App.css'
 import {SocketContext, socket} from './context/socket'
 import NotiCall from "./components/NotiCall";
+import ChatHistory from "./pages/ChatHistory";
  
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,6 +27,9 @@ function App() {
           
             <Route Route path="/chat/:id">
               <Chat/>
+            </Route>
+            <Route Route path="/chathistory/:id/:query">
+              <ChatHistory/>
             </Route>
             <Route Route path="/call/:id">
               <VideoCall/>

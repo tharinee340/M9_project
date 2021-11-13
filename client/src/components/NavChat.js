@@ -4,11 +4,11 @@ import {InputGroup,FormControl, Button } from 'react-bootstrap'
 import SearchIcon from '@mui/icons-material/Search';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { setsearch } from '../actions';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import axios from 'axios';
 import { SocketContextCall } from '../ContextCall';
+import Swal from 'sweetalert2';
 
 const Container = styled.div`
     width: 78vw;
@@ -42,10 +42,10 @@ const Btn = styled.div`
 const NavChat = () => {
     
     const { callUser, callAccepted, callEnded } = useContext(SocketContextCall);
-    const {id} = useParams()    
 
-
-    const dispatch = useDispatch()
+    const {id} = useParams()   
+    
+    const history = useHistory()
 
     const [query, setQuery] = useState("")
     const [username, setUsername] = useState('')
@@ -57,7 +57,16 @@ const NavChat = () => {
     },[id])
 
     const onSearch = () => {
-        dispatch(setsearch(query))
+        if(query===''){
+            Swal.fire({
+                title:'No Input',
+                icon:'error',
+                showCloseButton: true
+            })
+        }else{
+            history.push(`/chathistory/${id}/${query}`)
+        }
+        
     }
 
     return (
