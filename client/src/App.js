@@ -8,21 +8,28 @@ import Chat from "./pages/Chat";
 import VideoCall from "./pages/VideoCall";
 import './App.css'
 import {SocketContext, socket} from './context/socket'
+import NotiCall from "./components/NotiCall";
+ 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+
+  // let isCalling = true;
+  
   return (
     <>
     <SocketContext.Provider value={socket}>
       <div className="App">
+        <NotiCall/>
         <Router>
           <Switch>
+          
             <Route Route path="/chat/:id">
               <Chat/>
             </Route>
-            {/* <Route Route path="/call/:id">
+            <Route Route path="/call/:id">
               <VideoCall/>
-            </Route> */}
+            </Route>
             <Route path="/register">
               <Register/>
             </Route>
@@ -34,6 +41,9 @@ function App() {
             </Route>
             <Route path="/friendRequest">
               <Request/>
+            </Route>
+            <Route path="/testNoti">
+              <NotiCall/>
             </Route>
             <Route path="/">
               <Login/>

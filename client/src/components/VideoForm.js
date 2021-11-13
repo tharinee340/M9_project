@@ -6,6 +6,7 @@ import CallEndIcon from '@mui/icons-material/CallEnd';
 import { SocketContextCall } from '../ContextCall';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router'
+import axios from 'axios';
 
 const Container = styled.div`
     height: 91vh;
@@ -91,22 +92,41 @@ const EndCall = styled.div`
 
 const VideoForm = () => {
 
+    let user = JSON.parse(localStorage.getItem('user'))
+
     const id = useParams()
-    console.log(id.id)
     const [stream, setStream] = useState(null);
+    const [calling, setCalling] = useState([])
     const history = useHistory()
 
     const { name, callAccepted, myVideo, userVideo, callEnded, call, callUser, leaveCall, setName} = useContext(SocketContextCall);
+
     useEffect(() => {
+        if(user!==null) {
 
-        //use camera and microphone
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true})
-         .then((currentStream) => {
-            setStream(currentStream);
+            //use camera and microphone
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true})
+            .then((currentStream) => {
+                setStream(currentStream);
 
-            myVideo.current.srcObject = currentStream;
+                myVideo.current.srcObject = currentStream;
 
-         })
+            })
+
+
+            // axios.post('http://localhost:8080/auth/call/getCall', {
+            //     id:user.id, //ของเรา
+            //     id2:id //ของเพื่อน
+                
+            // }).then((response) => {
+            //     // console.log(user.id)
+            //     // setCalling(response.data.data)
+            //     // console.log(calling)
+            // })
+        } else {
+            history.push('/login')
+        }
+        
     },[])
 
     const handleEndCall = () => {
@@ -181,7 +201,6 @@ const VideoForm = () => {
                     />
                     <Button 
                         style={{backgroundColor: "white", color: "gray",border:"none", height: 45}}
-                        
                     >
                         <SendIcon/></Button>
                 </InputGroup>
