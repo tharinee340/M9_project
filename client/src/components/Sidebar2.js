@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 import {SocketContext} from '../context/socket';
+import Badge from '@mui/material/Badge';
 
 const Container = styled.div`
     width: 320px;
@@ -59,6 +60,8 @@ const NameFriend = styled.span`
     font-size: 18px;
     margin-left: 30px;
     margin-top: 20px;
+    width: 100px;
+    
 `
 const FriendContainer = styled.div`
     border-bottom: 1px solid #3D4450;
@@ -102,7 +105,9 @@ const Sidebar2 = () => {
                 </Profile>
                 {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>
-                    <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request</Title></Link>
+
+                    <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request<Badge badgeContent={4} color="primary" style={{marginLeft: 20}}></Badge></Title></Link>
+                    
                 </Request>
                     <Link to="/home" style={{textDecoration: "none"}}><Title>My Friends</Title></Link>
 
@@ -111,7 +116,7 @@ const Sidebar2 = () => {
                         <FriendContainer>
                             <Link to={`/chat/${user.id}`} style={{textDecoration:'none'}}><Friend>
                             <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                            <NameFriend>{user.username}</NameFriend></Friend>  
+                            <NameFriend>{user.username}</NameFriend><Badge badgeContent={4} color="primary" style={{paddingLeft: 30, marginTop: 35}}></Badge></Friend>
                             </Link> 
                         </FriendContainer>
                     ))
