@@ -8,7 +8,8 @@ import Chat from "./pages/Chat";
 import VideoCall from "./pages/VideoCall";
 import './App.css'
 import {SocketContext, socket} from './context/socket'
- 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 import {SocketContext} from '../context/socket';
+import { Button , Dropdown } from 'react-bootstrap'
 import Badge from '@mui/material/Badge';
 
 const Container = styled.div`
@@ -45,7 +46,6 @@ const Friend = styled.div`
     height: 60px;
     width: 60px;
     display: flex;
-
 `
 const FriendImage = styled.img`
     width: 100%;
@@ -58,11 +58,16 @@ const FriendImage = styled.img`
 const NameFriend = styled.span`
     color: lightgray;
     font-size: 18px;
-    margin-left: 30px;
+    margin-left: 18px;
     margin-top: 20px;
     width: 100px;
     
 `
+const Dropdown2 = styled.div`
+    margin-left: 70px;
+    margin-top: 13px;
+`
+
 const FriendContainer = styled.div`
     border-bottom: 1px solid #3D4450;
     padding: 20px 0;
@@ -151,9 +156,27 @@ const Sidebar2 = () => {
                 {friends.length>0 ? (
                     friends.map((user)=>(
                         <FriendContainer>
-                            <Link to={`/chat/${user.id}`} style={{textDecoration:'none'}}><Friend>
-                            <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
-                            <NameFriend>{user.username}</NameFriend><Badge badgeContent={4} color="primary" style={{paddingLeft: 30, marginTop: 35}}></Badge></Friend>
+                            <Link to={`/chat/${user.id}`} style={{textDecoration:'none'}}>
+                            <Friend>
+                                <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
+                                <NameFriend>{user.username}</NameFriend>
+                                <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
+                                <Dropdown2>
+                                    <Dropdown.Toggle id="dropdown-basic" variant="">
+                                        <Button variant="secondary" style={{borderRadius:'100%',width:'30px',height:'30px'}} id="dropdown-autoclose-true">
+                                            <svg style={{marginLeft:'-5px',margintTop:'0px'}} xmlns="http://www.w3.org/2000/svg" width="25" height="28" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 30 30">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                            </svg>
+                                        </Button>
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >Add To List</Dropdown.Item>
+                                        <Dropdown.Item >Add To Favorite</Dropdown.Item>
+                                        <Dropdown.Item >Add To Bookmark</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown2>
+                            </Friend>
                             </Link> 
                         </FriendContainer>
                     ))
