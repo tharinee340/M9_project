@@ -63,10 +63,6 @@ const NameFriend = styled.span`
     width: 100px;
     
 `
-const Dropdown2 = styled.div`
-    margin-left: 70px;
-    margin-top: 13px;
-`
 
 const FriendContainer = styled.div`
     border-bottom: 1px solid #3D4450;
@@ -161,7 +157,7 @@ const Sidebar2 = () => {
                                 <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
                                 <NameFriend>{user.username}</NameFriend>
                                 <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
-                                <Dropdown2>
+                                <Dropdown className="d-inline" style={{position:'absolute',right:'5',top:'5',marginLeft:'200px',marginTop:'13px'}}>
                                     <Dropdown.Toggle id="dropdown-basic" variant="">
                                         <Button variant="secondary" style={{borderRadius:'100%',width:'30px',height:'30px'}} id="dropdown-autoclose-true">
                                             <svg style={{marginLeft:'-5px',margintTop:'0px'}} xmlns="http://www.w3.org/2000/svg" width="25" height="28" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 30 30">
@@ -175,7 +171,7 @@ const Sidebar2 = () => {
                                         <Dropdown.Item >Add To Favorite</Dropdown.Item>
                                         <Dropdown.Item >Add To Bookmark</Dropdown.Item>
                                     </Dropdown.Menu>
-                                </Dropdown2>
+                                </Dropdown>
                             </Friend>
                             </Link> 
                         </FriendContainer>
