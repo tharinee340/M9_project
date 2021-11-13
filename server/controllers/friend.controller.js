@@ -64,7 +64,7 @@ exports.listrequest = (req,res) => {
         if(err) throw err
 
         if(result.length == 0){
-            return res.status(400).json({message:'No pending request!'})
+            return res.status(200).json(result)
         }else{
             return res.status(200).json(result)
         }

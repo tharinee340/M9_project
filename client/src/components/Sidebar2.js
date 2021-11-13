@@ -75,24 +75,53 @@ const Sidebar2 = () => {
     const history = useHistory()
 
     const [friends, setFriends] = useState([])
+    const [badgeRequest, setBadgeRequest] = useState('')
     const id = JSON.parse(localStorage.getItem('user'))
     
     useEffect(() => {
         if(id!==null){
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
                 setFriends(res.data)
+                axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                    setBadgeRequest(res.data.length)   
+                })
+            })
+            
+        }
+    }, [])
+
+    socket.on('new_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                setBadgeRequest(res.data.length)
             })
         }
-    }, [friends])
-
-    socket.on('delete_event',()=>{
-        setFriends([])
     })
+
+    socket.on('delete_friend',()=>{
+        if(id!==null){
+             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+                 setFriends(res.data)
+                 console.log('id', id.id);
+                 console.log('deletefriend',friends);
+                    axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                        setBadgeRequest(res.data.length)
+                        console.log('id', id.id);
+                        console.log('delete length',res.data.length);
+                    })
+                })
+        }
+    })
+    
 
     socket.on('accept_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
-                setFriends(res.data)
+             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+                 setFriends(res.data)
+                 axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                    setBadgeRequest(res.data.length)
+                    // console.log(res.data.length);
+                })
             })
         }
     })
@@ -105,8 +134,16 @@ const Sidebar2 = () => {
                 </Profile>
                 {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>
-
-                    <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request<Badge badgeContent={4} color="primary" style={{marginLeft: 20}}></Badge></Title></Link>
+                    <Link to="/friendRequest" style={{textDecoration: "none"}}>
+                    <Title>Friend Request
+                        {badgeRequest == null || badgeRequest == undefined || badgeRequest == 0 ? (
+                            <Badge badgeContent={0} showZero color="primary" style={{marginLeft: 20}}></Badge>
+                        ):(
+                            <Badge badgeContent={badgeRequest} showZero color="primary" style={{marginLeft: 20}}></Badge>
+                        )}
+                    </Title>
+                    </Link>
+                    {/* <Link to="/friendRequest" style={{textDecoration: "none"}}><Title>Friend Request<Badge badgeContent={requestNum} showZero color="primary" style={{marginLeft: 20}}></Badge></Title></Link> */}
                     
                 </Request>
                     <Link to="/home" style={{textDecoration: "none"}}><Title>My Friends</Title></Link>

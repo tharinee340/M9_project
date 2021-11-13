@@ -92,7 +92,6 @@ const RequestForm = () => {
             id2:idd
         }).then((response)=>{
             socket.emit('accept_request')
-            setRequests([])
         }).catch((err)=>{
             Swal.fire({
                 icon: 'error',
@@ -106,7 +105,6 @@ const RequestForm = () => {
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((response)=>{
             socket.emit('delete_event')
-            setRequests([])
         }).catch((err)=>{
             Swal.fire({
                 icon: 'error',
@@ -118,9 +116,11 @@ const RequestForm = () => {
     }
 
     socket.on('delete_event',()=>{
-        axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
                 setRequests(res.data)
             })
+        }
     })
 
     socket.on('accept_request',()=>{

@@ -26,11 +26,17 @@ io.on('connection',socket=>{
         console.log('new')
         io.emit('new_request')
     })
-    
+
     socket.on('delete_event',()=>{
         console.log('delete')
         io.emit('delete_event')
     })
+
+    socket.on('delete_friend',()=>{
+        console.log('deletefriend')
+        io.emit('delete_friend')
+    })
+    
 
     //vd call
     // socket.emit('me', socket.io);

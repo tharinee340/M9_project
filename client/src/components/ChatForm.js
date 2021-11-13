@@ -107,7 +107,6 @@ const ChatForm = () => {
             <Container>
                 <ChatContainer>
                     {messages.map((message)=>{
-                        console.log(message)
                         let dat = message.sendtime.split(' ')
                         let dat2 = dat[1].split(':')
                         let time = dat2[0] + ':' + dat2[1]

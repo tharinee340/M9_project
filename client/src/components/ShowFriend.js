@@ -68,22 +68,23 @@ const ShowFriend = () => {
 
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
-            .then((res)=>{
-                // socket.emit('delete_event')
-                // setFriends(['delete'])
+            .then(async(res)=>{
+                await socket.emit('delete_friend')
             }).catch((err) => {
                 if(err) throw err
             })
     }
 
-    // socket.on('delete_event',()=>{
-    //     axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
-    //         .then((response)=>{
-    //             setFriends(response.data)
-    //         })
-    // })
-
     socket.on('accept_request',()=>{
+        if(id!==null){
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            .then((response)=>{
+                setFriends(response.data)
+            })
+        }
+    })
+
+    socket.on('delete_friend',()=>{
         if(id!==null){
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
             .then((response)=>{
