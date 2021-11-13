@@ -39,15 +39,16 @@ io.on('connection',socket=>{
     
 
     //vd call
-    // socket.emit('me', socket.io);
-    // socket.on('end_call', (req, res) => {
-    //     socket.broadcast.emit("callended");
-    // })
-    // socket.on("calluser", ({userToCall, signalData, from, name}) => {
-    //      io.to(userToCall).emit("calluser", {signal: signalData, from, name})
-    // })
-    // socket.on("answercall", (data) => {
-    //     io.to(data.to).emit("callAccepted", data.signal);
-    // })
+    socket.emit('me', socket.io);
+    socket.on('end_call', (req, res) => {
+        socket.broadcast.emit("callended");
+    })
+    socket.on("callUser", ({userToCall, signalData, from, name}) => {
+         io.to(userToCall).emit("callUser", {signal: signalData, from, name})
+    })
+    socket.on("answercall", (data) => {
+        io.to(data.to).emit("callAccepted", data.signal);
+    })
+
 })
 

@@ -25,8 +25,8 @@ const ContextCallProvider = ({children}) => {
     useEffect(() => {
 
          socket.on('me', (id) => setMe(id));
-         socket.on('calluser', ({ from, name: callerName, signal}) => {
-            setCall({ isReceivedCall: true, from, name: callerName, signal })
+         socket.on('callUser', ({ from, name: callerName, signal}) => {
+            setCall({ isReceivingCall: true, from, name: callerName, signal })
          })
 
     }, []);
@@ -56,7 +56,7 @@ const ContextCallProvider = ({children}) => {
         const peer = new Peer({ initiator: true, trickle: false, stream });
 
         peer.on('signal', (data) => {
-            socket.emit('calluser', { userToCall: id, signal: data, from: me}, name)
+            socket.emit('callUser', { userToCall: id, signalData: data, from: me, name})
         })
 
         peer.on('stream' ,(currentStream) => {
@@ -90,7 +90,6 @@ const ContextCallProvider = ({children}) => {
             callAccepted,
             myVideo,
             userVideo,
-            
             name,
             setName,
             callEnded,
