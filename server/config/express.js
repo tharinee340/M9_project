@@ -4,7 +4,6 @@ const passport = require('./passport')
 const app = express()
 const cors = require('cors')
 
-app.set('view engine', 'ejs')
 
 module.exports = () => {
 
