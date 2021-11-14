@@ -8,6 +8,7 @@ import { useHistory } from 'react-router'
 const Container = styled.div`
     display: flex;
     height: 100%;
+    width: 72vw;
 `
 const Content = styled.div`
     

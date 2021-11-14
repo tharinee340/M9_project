@@ -11,7 +11,7 @@ import { SocketContextCall } from '../ContextCall';
 import Swal from 'sweetalert2';
 
 const Container = styled.div`
-    width: 78vw;
+    width: 72vw;
     height: 80px;
     background-color: #4C515C;
     display: flex;
@@ -74,7 +74,7 @@ const NavChat = () => {
             <Container>
                 <Title>{username}</Title>
                 <Right>
-                <InputGroup className="mb-3" style={{width: "20%"}}>
+                <InputGroup className="mb-3" style={{width: "25%"}}>
                     <FormControl
                         style={{height: 40}}
                         placeholder="Find Chat History"

@@ -7,14 +7,19 @@ import {SocketContext} from '../context/socket';
 import ForumIcon from '@mui/icons-material/Forum';
 
 const Container = styled.div`
-    width: 90%;
-    height: 91vh;
+    width: 100%;
+    height: 90vh;
     padding: 3%;
-    margin-left: 4%;
 `
 const Title = styled.h5`
     color: white;
     margin-bottom: 30px;
+`
+
+const Content = styled.div`
+    height: 75vh;
+    overflow: hidden;
+    overflow-y: scroll;
 `
 const FriendContainer = styled.div`
     border-bottom: 1px solid #7A7A7F;
@@ -143,7 +148,7 @@ const RequestForm = () => {
         <>
             <Container>
                 <Title>You have {requests.length} Requests</Title>
-
+            <Content>
                 {requests.length>0 ? (
                     requests.map((user)=>(
                         <FriendContainer>
@@ -165,7 +170,7 @@ const RequestForm = () => {
                 ):(
                     <p>No friend request</p>
                 )}                
-                
+                </Content>
             </Container>
             
         </>

@@ -8,11 +8,17 @@ import {SocketContext} from '../context/socket';
 import Swal from 'sweetalert2'
 
 const Container = styled.div`
-    width: 90%;
-    height: 91vh;
+    width: 100%;
+    height: 100%;
     padding: 3%;
-    margin-left: 4%;
     /* background-color: lightgrey; */
+`
+const Content = styled.div`
+    width: 100%;
+    height: 75vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    
 `
 const Text = styled.h5`
     color: white;
@@ -24,6 +30,7 @@ const FriendContainer = styled.div`
     margin: 0 40px;
     display: flex;
     justify-content: space-between;
+    
 `
 const Friend = styled.div`
     height: 70px;
@@ -96,8 +103,9 @@ const ShowFriend = () => {
     return (
         <>
             <Container>
+                
                 <Text>Online</Text>
-
+                <Content>
                 {friends.length>0 ? (
                     friends.map((friend)=>(
                         <FriendContainer>
@@ -115,7 +123,8 @@ const ShowFriend = () => {
                     ))
                 ):(
                     <p>No Friends</p>
-                )}                
+                )}      
+                </Content>          
 
             </Container>
             

@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const Container = styled.div`
     width: 90%;
-    height: 91vh;
+    height: 90vh;
     padding: 3%;
     margin-left: 5%;
 
@@ -74,6 +74,7 @@ const ChatForm = () => {
     const [text,setText] = useState("")
 
     useEffect(()=>{
+        
         if(user!==null){
             axios.post('http://localhost:8080/auth/chat/getmessages',{
             id:user.id,
