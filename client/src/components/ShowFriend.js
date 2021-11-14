@@ -68,8 +68,8 @@ const ShowFriend = () => {
 
     const onDelete = (idd) => {
         axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
-            .then(async(res)=>{
-                await socket.emit('delete_friend')
+            .then((res)=>{
+                socket.emit('delete_friend')
             }).catch((err) => {
                 if(err) throw err
             })

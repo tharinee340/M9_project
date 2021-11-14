@@ -49,7 +49,7 @@ exports.list = (req,res) => {
         if(err) throw err
 
         if(result.length == 0){
-            return res.status(400).json({message:'no friend'})
+            return res.status(200).json(result)
         }else{
             return res.status(200).json(result)
         }
@@ -95,6 +95,8 @@ exports.confirm = (req,res) => {
 exports.delete = (req,res) => {
     const id = req.params.id
     const id2 = req.params.id2
+    console.log('id1', id);
+    console.log('id2', id2);
     const sql = `DELETE FROM friends WHERE (user_id1 = ? AND user_id2 = ?) OR (user_id1 = ? AND user_id2 = ?)`
     database.query(sql,[id,id2,id2,id],(err,results)=>{
         if(err) throw err 
