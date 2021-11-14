@@ -6,6 +6,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import {SocketContext} from '../context/socket';
 import Swal from 'sweetalert2'
+import { style } from '@mui/system';
+import { useHistory } from 'react-router';
 
 const Container = styled.div`
     width: 100%;
@@ -49,11 +51,18 @@ const FriendImage = styled.img`
 const Icon = styled.div`
     padding-top: 20px;
     color: lightgrey;
+    cursor: pointer;
+    &:hover {
+        color: white;
+    }
 `
 const Name = styled.h5`
     color: lightgrey;
     margin-top: 25px;
     margin-left: 20px;
+`
+const AllIcon = styled.div`
+    display: flex;
 `
 
 const ShowFriend = () => {
@@ -63,6 +72,8 @@ const ShowFriend = () => {
     const [friends, setFriends] = useState([])
     
     const id = JSON.parse(localStorage.getItem('user'))
+
+    const history = useHistory();
     
     useEffect(()=>{
         if(id!==null){
@@ -92,6 +103,10 @@ const ShowFriend = () => {
         }
         })
         
+    }
+
+    const onChat = (id) => {
+        history.push(`/chat/${id}`)
     }
 
     socket.on('accept_request',()=>{
@@ -125,11 +140,11 @@ const ShowFriend = () => {
                                 <FriendImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg"/>
                                 <Name>{friend.username}</Name>
                             </Friend>
-                            <Icon>
-                                <DeleteIcon style={{fontSize: 35, marginRight: 30}} onClick={() => onDelete(friend.id)}/>
-                                <ForumIcon style={{fontSize: 35, marginRight: 30}}/>
-                                <VideocamIcon style={{fontSize: 40}}/>
-                            </Icon>
+                            <AllIcon>
+                                <Icon><DeleteIcon style={{fontSize: 35, marginRight: 30 }} onClick={() => onDelete(friend.id)}/></Icon>
+                                <Icon><ForumIcon style={{fontSize: 35, marginRight: 30}} onClick={() => onChat(friend.id)} /></Icon>
+                                <Icon><VideocamIcon style={{fontSize: 40}}/></Icon>
+                            </AllIcon>
                             
                         </FriendContainer>
                     ))
