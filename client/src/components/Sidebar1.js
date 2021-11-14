@@ -9,8 +9,8 @@ import Swal from 'sweetalert2'
 
 
 const Container = styled.div`
-    height: 100%;
-    width: 95px;
+    height: 100vh;
+    width: 6vw;
     background-color: #1F2329;
     padding: 0 8px;
 
@@ -24,7 +24,7 @@ const SidebarList = styled.ul`
 `
 const List = styled.li`
     margin-top: 40px;
-    padding: 5px 22px;
+    padding: 5px 20px;
     color: lightgray;
     transition: 0.5s;
     cursor: pointer;

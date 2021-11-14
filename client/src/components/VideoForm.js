@@ -9,7 +9,8 @@ import { useHistory } from 'react-router'
 import axios from 'axios';
 
 const Container = styled.div`
-    height: 91vh;
+    height: 90vh;
+    width: 100vw;
 `
 const Left = styled.div`
     background-color: white;
@@ -19,7 +20,6 @@ const Left = styled.div`
 `
 const Right = styled.div`
     margin: 40px 8% 30px 0;
-    /* background-color: lightgray; */
     padding-top: 30px;
     padding-right: 0;
     overflow: hidden;
@@ -35,11 +35,13 @@ const ChatLeft = styled.div`
     width: 100%;
     justify-content: flex-start;
     
+    
 `
 const TextChatLeft = styled.p`
     padding: 10px 20px;
     background-color: whitesmoke;
     border-radius: 5px;
+    
 `
 const ChatRight = styled.div`
     display: flex;
@@ -66,6 +68,7 @@ const VideoContainer = styled.div`
     width: 100%;
     /* background-color: red; */
     display: flex;
+    
 `
 const Video = styled.div`
     width: 50%;
@@ -86,6 +89,7 @@ const EndCall = styled.div`
     :hover {
         background-color: red;
     }
+    
 
 `
 
@@ -142,8 +146,8 @@ const VideoForm = () => {
         
 
             <Container>
-                <Row >
-                    <Col md={9} style={{height: "100%"}}>
+                <Row style={{height: "90vh", width: "100vw"}}>
+                    <Col md={9} style={{height: "90vh"}}>
                         <Left>
                             <VideoContainer>
                                 
@@ -160,7 +164,7 @@ const VideoForm = () => {
                             
                         </Left>
                     </Col>
-                    <Col md={3}>
+                    <Col md={3} style={{height: "90vh"}}>
                         
                         <Title>Messages</Title>
                         <Right>
@@ -194,7 +198,7 @@ const VideoForm = () => {
                         </ChatContainer>
                 </Right>
 
-                <InputGroup style={{width: "92%", marginBottom:0}}>
+                <InputGroup style={{width: "92%", marginBottom:0, backgroundColor: "red"}}>
                     <FormControl
                     style={{height: 45}}
                     placeholder="Type your message here ..."

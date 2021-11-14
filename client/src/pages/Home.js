@@ -7,10 +7,11 @@ import { useHistory } from 'react-router'
  
 const Container = styled.div`
     display: flex;
-    height: 100%;
+    height: 90vh;
+    width: 72vw;
 `
 const Content = styled.div`
-    
+   
 `
 const Home = () => {
     const history = useHistory()

@@ -4,8 +4,8 @@ import { Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Container = styled.div`
-    width: 78vw;
-    height: 80px;
+    width: 72vw;
+    height: 10vh;
     background-color: #4C515C;
     display: flex;
     padding: 20px 30px 0 30px;
