@@ -77,18 +77,23 @@ const FormRegister = () => {
     
     function onClick(event){
         event.preventDefault()
+        let date = Date.now().toString()
+
 
         const data = new FormData();
-        data.append('image', fileData)
-        
-        console.log(fileData.name)
+        data.append('image', fileData, date+fileData.name)
+        console.log(date+fileData.name)
 
+        // if(password===confirmPass){
+        //     axios.post('http://localhost:8080/auth/users/reg/upload', data)
+                
+        // }
         
         if(password===confirmPass){
             // console.log(file.name)
             console.log(username)
                 axios.post('http://localhost:8080/auth/users/reg', {
-                    fileData: fileData.name,
+                    fileData: date+fileData.name,
                     username:username,
                     password:password,
                     email:email,
@@ -126,8 +131,6 @@ const FormRegister = () => {
     const togglePasswordCon = (event) => {
         setPasswordShowCon(!passwordShowCon);
     }
-
-
 
     return (
         <>

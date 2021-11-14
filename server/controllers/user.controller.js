@@ -57,9 +57,9 @@ exports.login = function(req, res) {
             message: 'Invalid username or password'
         })
     } else {
-        const{username, id} = req.user;
+        const{username, id, image} = req.user;
         const token = jwt.sign({username, id}, 'userAccount');
-        return res.status(200).json({id, username, token})
+        return res.status(200).json({id, username, token, image})
     }
 };
 

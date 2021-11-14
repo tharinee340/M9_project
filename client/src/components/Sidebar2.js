@@ -78,7 +78,7 @@ const Sidebar2 = () => {
     const [friends, setFriends] = useState([])
     const [badgeRequest, setBadgeRequest] = useState('')
     const id = JSON.parse(localStorage.getItem('user'))
-    
+
     useEffect(() => {
         if(id!==null){
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
@@ -148,7 +148,7 @@ const Sidebar2 = () => {
         <>
             <Container>
                 <Profile>
-                    <ProfileImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg"></ProfileImage>
+                    <ProfileImage src={`../../server/images/163691262132859f4bbbf7b069c1572bb9ca9792a4b6a.png`}></ProfileImage>
                 </Profile>
                 {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>

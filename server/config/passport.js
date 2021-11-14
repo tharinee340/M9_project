@@ -28,7 +28,8 @@ module.exports = () => {
                 }else {
                     done(null, {
                         id: result[0].id,
-                        username: result[0].username
+                        username: result[0].username,
+                        image: result[0].imageURL
                     })
                 }
             }
