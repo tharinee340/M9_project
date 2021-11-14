@@ -5,6 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import {SocketContext} from '../context/socket';
 import { useHistory, useParams } from 'react-router';
 import axios from 'axios'
+import Scrollbar from 'react-scrollable-feed';
 
 const Container = styled.div`
     width: 90%;
@@ -72,6 +73,7 @@ const ChatForm = () => {
     const [messages,setMessages] = useState([])
 
     const [text,setText] = useState("")
+    
 
     useEffect(()=>{
         
@@ -116,6 +118,7 @@ const ChatForm = () => {
         <>
             <Container>
                 <ChatContainer>
+                    <Scrollbar>
                     {messages.map((message)=>{
                         let dat = message.sendtime.split(' ')
                         let dat2 = dat[1].split(':')
@@ -126,6 +129,7 @@ const ChatForm = () => {
                             return <ChatLeft><TextChatLeft>{message.message}</TextChatLeft><Timestamp>{time}</Timestamp></ChatLeft>
                         }
                     })}
+                    </Scrollbar>
                 </ChatContainer>
                 <InputContainer>
                 

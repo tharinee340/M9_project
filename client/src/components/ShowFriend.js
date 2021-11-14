@@ -116,7 +116,7 @@ const ShowFriend = () => {
         <>
             <Container>
                 
-                <Text>Online</Text>
+                <Text>All friends</Text>
                 <Content>
                 {friends.length>0 ? (
                     friends.map((friend)=>(
