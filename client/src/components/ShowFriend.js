@@ -67,12 +67,24 @@ const ShowFriend = () => {
     },[])
 
     const onDelete = (idd) => {
-        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
-            .then((res)=>{
-                socket.emit('delete_friend')
-            }).catch((err) => {
-                if(err) throw err
-            })
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
+                .then((res)=>{
+                    socket.emit('delete_friend')
+                }).catch((err) => {
+                    if(err) throw err
+                })
+        }
+        })
+        
     }
 
     socket.on('accept_request',()=>{

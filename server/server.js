@@ -17,6 +17,12 @@ io.on('connection',socket=>{
             io.emit('sent_message')
         })
     })
+
+    socket.on('clear_message',()=>{
+        console.log('clear')
+        io.emit('clear_message')
+    })
+
     socket.on('accept_request',()=>{
         console.log('accept')
         io.emit('accept_request')
@@ -33,7 +39,7 @@ io.on('connection',socket=>{
     })
 
     socket.on('delete_friend',()=>{
-        console.log('deletefriend')
+        console.log('delete friend')
         io.emit('delete_friend')
     })
     
@@ -41,12 +47,15 @@ io.on('connection',socket=>{
     //vd call
     socket.emit('me', socket.io);
     socket.on('end_call', (req, res) => {
+        console.log('end_call')
         socket.broadcast.emit("callended");
     })
     socket.on("calluser", ({userToCall, signalData, from, name}) => {
+        console.log('user_call')
          io.to(userToCall).emit("calluser", {signal: signalData, from, name})
     })
     socket.on("answercall", (data) => {
+        console.log('answer_call')
         io.to(data.to).emit("callAccepted", data.signal);
     })
 

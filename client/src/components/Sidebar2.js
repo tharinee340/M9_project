@@ -144,6 +144,29 @@ const Sidebar2 = () => {
           })
     }
 
+    const onClearChat = (idd) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, clear it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:8080/auth/chat/clearchat/${id.id}/${idd}`).then((res) => {
+                    socket.emit('clear_chat')
+                    Swal.fire(
+                        'Deleted!',
+                        'Chat has been cleared.',
+                        'success'
+                    )
+                })
+                socket.emit('clear_message')
+            }
+          })
+    }
+
     return (
         <>
             <Container>
@@ -186,7 +209,7 @@ const Sidebar2 = () => {
                                         </Button>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item >Show History Chat</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => {onClearChat(user.id)}}>Clear Chat</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {deleteFriend(user.id)}}>Delete Friend</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

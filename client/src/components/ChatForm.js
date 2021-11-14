@@ -99,6 +99,15 @@ const ChatForm = () => {
         })
     })
 
+    socket.on('clear_message',()=>{
+        axios.post('http://localhost:8080/auth/chat/getmessages',{
+            id:user.id,
+            id2:id
+        }).then((response)=>{
+            setMessages(response.data.data)
+        })
+    })
+
     //image avatar
     //<img style={{borderRadius:"30px",marginTop:'-8px',marginRight:'15px',objectFit:'cover'}} width="60px" height="60px" src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
 
