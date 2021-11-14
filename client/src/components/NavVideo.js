@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
     width: 100vw;
-    height: 80px;
+    height: 10vh;
     background-color: #4C515C;
 `
 const Title = styled.h4`

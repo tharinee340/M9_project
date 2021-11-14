@@ -9,13 +9,16 @@ import Badge from '@mui/material/Badge';
 import Swal from 'sweetalert2'
 
 const Container = styled.div`
-    width: 320px;
+    width: 22vw;
     background-color: #2F343D;
-    height: 100%;
+    height: 100vh;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 50px;
 
+`
+const Content = styled.div`
+    height: 100%;
 `
 const Profile = styled.div`
     height: 90px;
@@ -67,8 +70,14 @@ const NameFriend = styled.span`
 const FriendContainer = styled.div`
     border-bottom: 1px solid #3D4450;
     padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
 `
-
+const ContaiAllFriend = styled.div`
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 50%;
+`
 const Sidebar2 = () => {
     
     const socket = useContext(SocketContext);
@@ -144,9 +153,33 @@ const Sidebar2 = () => {
           })
     }
 
+    const onClearChat = (idd) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, clear it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:8080/auth/chat/clearchat/${id.id}/${idd}`).then((res) => {
+                    socket.emit('clear_chat')
+                    Swal.fire(
+                        'Deleted!',
+                        'Chat has been cleared.',
+                        'success'
+                    )
+                })
+                socket.emit('clear_message')
+            }
+          })
+    }
+
     return (
         <>
             <Container>
+                <Content>
                 <Profile>
                     <ProfileImage src={`../../server/images/163691262132859f4bbbf7b069c1572bb9ca9792a4b6a.png`}></ProfileImage>
                 </Profile>
@@ -165,7 +198,7 @@ const Sidebar2 = () => {
                     
                 </Request>
                     <Link to="/home" style={{textDecoration: "none"}}><Title>My Friends</Title></Link>
-
+                <ContaiAllFriend>
                 {friends.length>0 ? (
                     friends.map((user)=>(
                         <FriendContainer>
@@ -176,8 +209,8 @@ const Sidebar2 = () => {
                                     <NameFriend>{user.username}</NameFriend>
                                     <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
                                 </div>
-                                </Link> 
-                                <Dropdown className="d-inline" style={{position:'absolute',right:'5',top:'5',marginLeft:'200px',marginTop:'13px'}}>
+                                </Link> </Friend>
+                                <Dropdown className="d-inline" style={{ display: "flex" ,marginTop:'13px'}}>
                                     <Dropdown.Toggle id="dropdown-basic" variant="">
                                         <Button variant="secondary" style={{borderRadius:'100%',width:'30px',height:'30px'}} id="dropdown-autoclose-true">
                                             <svg style={{marginLeft:'-5px',margintTop:'0px'}} xmlns="http://www.w3.org/2000/svg" width="25" height="28" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 30 30">
@@ -186,16 +219,18 @@ const Sidebar2 = () => {
                                         </Button>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item >Show History Chat</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => {onClearChat(user.id)}}>Clear Chat</Dropdown.Item>
                                         <Dropdown.Item onClick={() => {deleteFriend(user.id)}}>Delete Friend</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                            </Friend>
+                            
                         </FriendContainer>
                     ))
                 ):(
                     <p></p>
-                )}                
+                )}               
+                </ContaiAllFriend> 
+                </Content>
             </Container>
             
         </>

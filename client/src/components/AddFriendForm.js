@@ -8,10 +8,16 @@ import {SocketContext} from '../context/socket';
 
 const Container = styled.div`
     width: 90%;
-    height: 91vh;
+    height: 90vh;
     padding: 3%;
     margin-left: 4%;
     
+`
+
+const Content = styled.div`
+    height: 60vh;
+    overflow: hidden;
+    overflow-y: scroll;
 `
 const InputContainer = styled.div`
     display: flex;
@@ -23,7 +29,7 @@ const InputContainer = styled.div`
 const FriendContainer = styled.div`
     border-bottom: 1px solid #7A7A7F;
     padding: 20px 0;
-    margin-left: 190px;
+    margin-left: 135px;
     padding: 30px 0;
     display: flex;
     justify-content: space-between;
@@ -121,12 +127,12 @@ const AddFriendForm = () => {
                     </InputGroup>
                 </InputContainer>
                 
-
+                <Content>
                 {results.length>0 ? (
                     results.map((result)=>(
                         <FriendContainer>
                             <Friend>
-                                <FriendImage src={result.imageURL}/>
+                                <FriendImage src="https://cucans.in.th/wp-content/themes/cera/assets/images/avatars/user-avatar.png"/>
                                 <Name>{result.username}</Name>
                             </Friend>
                             <Button variant="primary" 
@@ -139,6 +145,7 @@ const AddFriendForm = () => {
                     <p>No Results</p>
                 )
                 }
+                </Content>
                
             </Container>
             

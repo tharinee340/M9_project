@@ -22,3 +22,12 @@ exports.searchmessages = (req,res) => {
         })
     })
 }
+
+exports.clearchat = (req,res) => {
+    const id = req.params.id
+    const id2 = req.params.id2
+    database.query('DELETE FROM messages WHERE (user_id1 = ? AND user_id2 = ?) OR (user_id1 = ? AND user_id2 = ?)',[id,id2,id2,id],(err,results)=>{
+        if(err) throw err
+        return res.status(200).json({msg:'success'})
+    })
+}
