@@ -8,6 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const Container = styled.div`
     display: flex;
@@ -43,7 +44,7 @@ const Title = styled.h1`
 `
 
 const TitleInput = styled.p`
-    margin-top: 30px;
+    margin-top: 10px;
     color: whitesmoke;
     font-size: 18px;
 `
@@ -66,6 +67,8 @@ const FormRegister = () => {
     const [confirmPass, setConfirmPass] = useState("");
     const [passwordShow, setPasswordShow] = useState(false)
     const [passwordShowCon, setPasswordShowCon] = useState(false)
+    const [fileData, setFileData] = useState()
+
 
     let user = JSON.parse(localStorage.getItem('user'))
     if(user){
@@ -74,12 +77,24 @@ const FormRegister = () => {
     
     function onClick(event){
         event.preventDefault()
+
+        const data = new FormData();
+        data.append('image', fileData)
+        
+        console.log(fileData.name)
+
+        
         if(password===confirmPass){
-                axios.post('http://localhost:8080/auth/users/reg',{
+            // console.log(file.name)
+            console.log(username)
+                axios.post('http://localhost:8080/auth/users/reg', {
+                    fileData: fileData.name,
                     username:username,
                     password:password,
-                    email:email
+                    email:email,
+ 
                 }).then((response)=>{
+                    axios.post('http://localhost:8080/auth/users/reg/upload', data)
                     if(response.status===200){
                         history.push('/')
                         Swal.fire({
@@ -112,54 +127,71 @@ const FormRegister = () => {
         setPasswordShowCon(!passwordShowCon);
     }
 
+
+
     return (
         <>
             <Container>
                 <Link to="/"><TitleLink><KeyboardBackspaceIcon sx={{fontSize: 30}}/> SignIn </TitleLink></Link>
                 <Logo>LOGO</Logo>
-                <FormContainer>
+                <FormContainer onSubmit={onClick}>
                     <Form noValidate validated={validated}>
                     <Title>Sign Up</Title>
-                    <TitleInput>Email</TitleInput>
+                    {/* <TitleInput>Email</TitleInput> */}
                     <Form.Control 
                         required placeholder="Email"
-                        style={{height: 50}}
+                        style={{height: 40, marginBottom: 30}}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
-                        Please input your username.
+                        Please input your Email.
                     </Form.Control.Feedback>
 
-                    <TitleInput>Username</TitleInput>
+                    
+
+                    {/* <TitleInput>Username</TitleInput> */}
                     <Form.Control 
                         required placeholder="Username"
-                        style={{height: 50}}
+                        style={{height: 40, marginBottom: 30}}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
                         Please input your username.
                     </Form.Control.Feedback>
 
-                    <TitleInput>Password</TitleInput>
+                    {/* <TitleInput>Image</TitleInput> */}
+
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Control 
+                            type="file"  
+                            style={{height: 40, marginBottom: 30}} 
+                            onChange={(e) => setFileData(e.target.files[0])}
+                        />
+                    </Form.Group>
+                    <Form.Control.Feedback type="invalid">
+                        Please choose your profile image.
+                    </Form.Control.Feedback>
+
+                    {/* <TitleInput>Password</TitleInput> */}
                     <InputGroup>
                         <Form.Control 
                             required placeholder="Password" 
-                            style={{height: 50}}
+                            style={{height: 40, marginBottom: 30}}
                             type= { passwordShow ? "text" : "password" }
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none"}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
+                        <Button onClick={togglePassword} style={{backgroundColor: "white", color: "gray", border: "none", height: 40}}>{ passwordShow ? <VisibilityIcon /> : <VisibilityOffIcon/>}</Button>
                     </InputGroup>
 
                     <Form.Control.Feedback type="invalid">
                         Please input your password.
                     </Form.Control.Feedback>
 
-                    <TitleInput>Confirm Password</TitleInput>
+                    {/* <TitleInput>Confirm Password</TitleInput> */}
                     <InputGroup>
                         <Form.Control 
                             required placeholder="Confirm Password" 
-                            style={{height: 50}}
+                            style={{height: 40}}
                             type= { passwordShowCon ? "text" : "password" }
                             onChange={(e) => setConfirmPass(e.target.value)}
                         />
@@ -170,7 +202,7 @@ const FormRegister = () => {
                     </Form.Control.Feedback>
 
                     <BtnContainer>
-                        <Button style={{width: "100%", height: 50, backgroundColor: "#6497B4", fontSize: 18}} type="submit" onClick={onClick}>Sign Up</Button>
+                        <Button style={{width: "100%", height: 40, backgroundColor: "#6497B4", fontSize: 18}} type="submit" onClick={onClick}>Sign Up</Button>
                     </BtnContainer>
                     <Link to="/login"><TextLink>Already have account ? </TextLink></Link>
                     </Form>

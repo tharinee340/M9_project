@@ -3,9 +3,17 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 exports.reg = function(req, res) {
+
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
+    // const date = Date.now();
+    // const fileData = date + "--"+ req.body.fileData;
+    const fileData = req.body.fileData
+    
+
+    console.log(fileData)
+
     if(!username || !password || !email){
         return res.status(400).json({
             message: 'Please fill data!'
@@ -30,8 +38,8 @@ exports.reg = function(req, res) {
                 const salt = bcrypt.genSaltSync(saltRounds);
                 const hash = bcrypt.hashSync(password, salt);
 
-                const sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
-                database.query(sql,[username, hash, email], (err, result) => {
+                const sql = "INSERT INTO users (username, password, email, imageURL) VALUES (?, ?, ?, ?)"
+                database.query(sql,[username, hash, email, fileData], (err, result) => {
                     if(err) throw err
 
                     return res.status(200).json({
@@ -66,3 +74,4 @@ exports.getuser = function(req,res) {
         }
     })
 }
+
