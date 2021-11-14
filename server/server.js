@@ -1,11 +1,15 @@
 const express = require('./config/express')
 const database = require('./config/database')
 const app = express()
+const multer = require('multer')
+
+
 const io = require('socket.io')(8081, {
     cors: {
         origin: ['http://localhost:3000']
     }
 })
+
 
 app.listen(8080)
 
