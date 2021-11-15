@@ -35,8 +35,8 @@ const FriendContainer = styled.div`
     
 `
 const Friend = styled.div`
-    height: 70px;
-    width: 70px;
+    height: 80px;
+    width: 80px;
     display: flex;
     
 
