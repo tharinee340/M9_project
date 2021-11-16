@@ -2,6 +2,7 @@ import React, { useContext, useEffect , useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import { SocketContextCall } from '../ContextCall'
+import { useHistory } from 'react-router'
 
 const Container = styled.div`
     /* display: flex;
@@ -26,7 +27,33 @@ const Title = styled.h5``
 
 const NotiCall = () => {
     const [stream, setStream] = useState(null);
-    const { call, answerCall, callAccepted } = useContext(SocketContextCall)
+    const { call, answerCall, callAccepted, myVideo, userVideo} = useContext(SocketContextCall)
+    const history = useHistory();
+
+
+        const handleAccept = () => {
+            console.log(call.id)
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true})
+            .then((currentStream) => {
+                // console.log(currentStream)
+                // setStream(currentStream);
+                // console.log("Hii")
+
+                // // myVideo.current.srcObject = currentStream;
+                setStream(currentStream);
+                // userVideo.current.srcObject = currentStream;
+                // console.log(myVideo)
+                answerCall(stream)
+
+                // history.push(`/call/${call.id}`)
+
+
+            })
+            
+        }
+        
+
 
     return (
         <>  
@@ -36,7 +63,7 @@ const NotiCall = () => {
                     <NotiPop>
                         <Title> {call.name} is calling...</Title>
                         
-                        <Button variant="success" style={{marginLeft: 20}} onClick={answerCall}>Accept</Button>
+                        <Button variant="success" style={{marginLeft: 20}} onClick={handleAccept}>Accept</Button>
                         <Button variant="danger" style={{marginLeft: 20}}>Decline</Button>
                     </NotiPop>
                 </Container>

@@ -16,8 +16,11 @@ const ContextCallProvider = ({children}) => {
   const myVideo = useRef(null)
   const userVideo = useRef();
   const connectionRef = useRef();
+  
 
   const answerCall = (stream) => {
+    console.log("answer call")
+    
     setCallAccepted(true);
 
     const peer = new Peer({ initiator: false, trickle: false, stream });

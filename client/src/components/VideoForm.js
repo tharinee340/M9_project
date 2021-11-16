@@ -112,8 +112,10 @@ const VideoForm = () => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true})
             .then((currentStream) => {
                 setStream(currentStream);
+                console.log(currentStream)
 
                 myVideo.current.srcObject = currentStream;
+                console.log(myVideo)
 
             })
 
