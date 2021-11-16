@@ -79,21 +79,17 @@ const FormRegister = () => {
         event.preventDefault()
         let date = Date.now().toString()
 
-
         const data = new FormData();
-        data.append('image', fileData, date+fileData.name)
-        console.log(date+fileData.name)
-
-        // if(password===confirmPass){
-        //     axios.post('http://localhost:8080/auth/users/reg/upload', data)
-                
-        // }
         
+        let filedata = ''
         if(password===confirmPass){
-            // console.log(file.name)
-            console.log(username)
+
+                if(fileData!==null&&fileData!==undefined){
+                    data.append('image', fileData, date+fileData.name)
+                    filedata = data+fileData.name
+                }
                 axios.post('http://localhost:8080/auth/users/reg', {
-                    fileData: date+fileData.name,
+                    fileData: filedata,
                     username:username,
                     password:password,
                     email:email,

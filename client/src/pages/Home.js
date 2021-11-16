@@ -32,16 +32,18 @@ const Home = () => {
     if(!user){
         history.push('/login')
     }
+    if(user!==null){
+        axios.post('http://localhost:8080/auth/users/new_socket',{
+            id:user.id,
+            socket:me
+        }).then((response)=>{
+            console.log(response)
+            window.location.reload(true)
+        }).catch((err)=>{
+            throw err
+        })
+    }
 
-    axios.post('http://localhost:8080/auth/users/new_socket',{
-        id:user.id,
-        socket:me
-    }).then((response)=>{
-        console.log(response)
-        window.location.reload(true)
-    }).catch((err)=>{
-        throw err
-    })
 
     return (
         <>
