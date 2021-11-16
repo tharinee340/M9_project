@@ -86,7 +86,7 @@ const FormRegister = () => {
 
                 if(fileData!==null&&fileData!==undefined){
                     data.append('image', fileData, date+fileData.name)
-                    filedata = data+fileData.name
+                    filedata = date+fileData.name
                 }
                 axios.post('http://localhost:8080/auth/users/reg', {
                     fileData: filedata,

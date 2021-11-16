@@ -86,9 +86,7 @@ const Sidebar2 = () => {
 
     const [friends, setFriends] = useState([])
     const [badgeRequest, setBadgeRequest] = useState('')
-    const [image, setImage] = useState(undefined)
     const id = JSON.parse(localStorage.getItem('user'))
-    const file = JSON.parse(localStorage.getItem('image'))
 
     useEffect(() => {
         if(id!==null){
@@ -184,7 +182,12 @@ const Sidebar2 = () => {
             <Container>
                 <Content>
                 <Profile>
+                    {id !== null ? (
                     <ProfileImage src={`//localhost:8080/${id.image}`} ></ProfileImage>
+                    ):
+                    (
+                        <ProfileImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg" ></ProfileImage>
+                    )}     
                 </Profile>
                 {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>
