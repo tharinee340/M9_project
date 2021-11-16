@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import {SocketContext} from '../context/socket';
-import ForumIcon from '@mui/icons-material/Forum';
 
 const Container = styled.div`
     width: 100%;

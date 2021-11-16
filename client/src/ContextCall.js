@@ -1,7 +1,6 @@
-import React, {useState, useEffect, createContext, useRef} from 'react'
+import React, {useState, createContext, useRef} from 'react'
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
-import { useHistory } from 'react-router'
 
 const SocketContextCall = createContext();
 
@@ -71,7 +70,6 @@ const ContextCallProvider = ({children}) => {
       myVideo,
       userVideo,
       name,
-      setName,
       callEnded,
       me,
       setMe,

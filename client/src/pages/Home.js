@@ -1,4 +1,4 @@
-import React , {useContext, useEffect} from 'react'
+import React , {useContext} from 'react'
 import Sidebar from '../components/Sidebar'
 import NavHome from '../components/NavHome'
 import styled from 'styled-components'

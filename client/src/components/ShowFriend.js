@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import {SocketContext} from '../context/socket';
 import Swal from 'sweetalert2'
-import { style } from '@mui/system';
 import { useHistory } from 'react-router';
 
 const Container = styled.div`
