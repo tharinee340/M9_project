@@ -9,6 +9,7 @@ import { useHistory, useParams } from 'react-router';
 import axios from 'axios';
 import { SocketContextCall } from '../ContextCall';
 import Swal from 'sweetalert2';
+import { SocketContext } from '../context/socket';
 
 const Container = styled.div`
     width: 72vw;
@@ -40,7 +41,8 @@ const Btn = styled.div`
     }
 `
 const NavChat = () => {
-    
+    const socket = useContext(SocketContext)
+
     const { callUser, callAccepted, callEnded } = useContext(SocketContextCall);
 
     const {id} = useParams()   
@@ -49,10 +51,13 @@ const NavChat = () => {
 
     const [query, setQuery] = useState("")
     const [username, setUsername] = useState('')
+    const [usersocket,setUserSocket] = useState('')
 
     useEffect(()=>{
         axios.get(`http://localhost:8080/auth/users/get_user/${id}`).then((response)=>{
             setUsername(response.data[0].username)
+            setUserSocket(response.data[0].current_socket)
+           
         })
     },[id])
 
@@ -67,6 +72,27 @@ const NavChat = () => {
             history.push(`/chathistory/${id}/${query}`)
         }
         
+    }
+
+    socket.on('new_socket',()=>{
+        axios.get(`http://localhost:8080/auth/users/get_user/${id}`).then((response)=>{
+            setUsername(response.data[0].username)
+            setUserSocket(response.data[0].current_socket)
+           
+        })
+    })
+
+    const onClick = () => {
+        if(usersocket!==null&&usersocket!==undefined&&usersocket!==''){
+            history.push(`/call/${id}`)
+        }else{
+            Swal.fire({
+                title:'User Not Online.',
+                showCloseButton: true
+            })
+
+        }  
+        callUser(usersocket)
     }
 
     return (
@@ -84,7 +110,7 @@ const NavChat = () => {
                     <Button style={{height: 40, backgroundColor: 'white', border: 'none', color: 'gray'}} onClick={onSearch}><SearchIcon/></Button>
                 </InputGroup>
                 
-                <Link to={`/call/${id}`} onClick={ () => callUser(id)}><Btn><VideocamIcon style={{fontSize: 40}} /></Btn></Link>
+                <Btn onClick={ () => onClick()}><VideocamIcon style={{fontSize: 40}} /></Btn>
                 </Right>
             </Container>
         </>

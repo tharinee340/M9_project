@@ -28,4 +28,6 @@ route.post('/login', passport.authenticate('basic', {session: false}), userContr
 
 route.get('/get_user/:id', userController.getuser)
 
+route.post('/new_socket', userController.newsocket)
+
 module.exports = route

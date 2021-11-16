@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect , useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import { SocketContextCall } from '../ContextCall'
@@ -25,8 +25,9 @@ const NotiPop = styled.div`
 const Title = styled.h5``
 
 const NotiCall = () => {
-
+    const [stream, setStream] = useState(null);
     const { call, answerCall, callAccepted } = useContext(SocketContextCall)
+
     return (
         <>  
             { call.isReceivingCall && !callAccepted && (

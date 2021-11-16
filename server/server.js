@@ -14,12 +14,20 @@ const io = require('socket.io')(8081, {
 app.listen(8080)
 
 io.on('connection',socket=>{
-    console.log('connected')
+    console.log('User ID : ', socket.id)
+
+    socket.emit('me', socket.id);
+
     socket.on('new_message',(id1,id2,message)=>{
         database.query('INSERT INTO messages (user_id1,user_id2,message,sendtime) VALUES (?,?,?,now())',[id1,id2,message],(err,results)=>{
             if(err) throw err
             io.emit('sent_message')
         })
+    })
+
+    socket.on('new_socket',()=>{
+        console.log('new socket')
+        io.emit('new_socket')
     })
 
     socket.on('clear_message',()=>{
@@ -46,19 +54,18 @@ io.on('connection',socket=>{
         console.log('delete friend')
         io.emit('delete_friend')
     })
-    
 
     //vd call
-    socket.emit('me', socket.io);
+    
     socket.on('end_call', (req, res) => {
         console.log('end_call')
-        socket.broadcast.emit("callended");
+        io.broadcast.emit("callended");
     })
-    socket.on("calluser", ({userToCall, signalData, from, name}) => {
+    socket.on("callUser", ({userToCall, signalData, from, name}) => {
         console.log('user_call')
-         io.to(userToCall).emit("calluser", {signal: signalData, from, name})
+        io.to(userToCall).emit("callUser", {signal: signalData, from, name})
     })
-    socket.on("answercall", (data) => {
+    socket.on("answerCall", (data) => {
         console.log('answer_call')
         io.to(data.to).emit("callAccepted", data.signal);
     })

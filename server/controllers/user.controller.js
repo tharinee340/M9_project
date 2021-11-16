@@ -75,3 +75,10 @@ exports.getuser = function(req,res) {
     })
 }
 
+exports.newsocket = (req,res) => {
+    let id = req.body.id
+    let socket = req.body.socket
+    database.query('UPDATE users SET current_socket = ? WHERE id = ?',[socket,id],(err,resutls)=>{
+        if(err) throw err
+    })
+}

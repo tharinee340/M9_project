@@ -7,6 +7,7 @@ import {SocketContext} from '../context/socket';
 import { Button , Dropdown } from 'react-bootstrap'
 import Badge from '@mui/material/Badge';
 import Swal from 'sweetalert2'
+import { SocketContextCall } from '../ContextCall'
 
 const Container = styled.div`
     width: 22vw;
@@ -82,6 +83,8 @@ const Sidebar2 = () => {
     
     const socket = useContext(SocketContext);
 
+    const {setName} = useContext(SocketContextCall)
+
     const history = useHistory()
 
     const [friends, setFriends] = useState([])
@@ -90,6 +93,7 @@ const Sidebar2 = () => {
 
     useEffect(() => {
         if(id!==null){
+            setName(id.username)
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
                 setFriends(res.data)
                 axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {

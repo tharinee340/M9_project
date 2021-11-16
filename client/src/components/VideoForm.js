@@ -99,6 +99,7 @@ const VideoForm = () => {
     let user = JSON.parse(localStorage.getItem('user'))
 
     const id = useParams()
+    console.log(id)
     const [stream, setStream] = useState(null);
     const [calling, setCalling] = useState([])
     const history = useHistory()
@@ -117,16 +118,6 @@ const VideoForm = () => {
 
             })
 
-
-            // axios.post('http://localhost:8080/auth/call/getCall', {
-            //     id:user.id, //ของเรา
-            //     id2:id //ของเพื่อน
-                
-            // }).then((response) => {
-            //     // console.log(user.id)
-            //     // setCalling(response.data.data)
-            //     // console.log(calling)
-            // })
         } else {
             history.push('/login')
         }
@@ -135,9 +126,8 @@ const VideoForm = () => {
 
     const handleEndCall = () => {
         leaveCall(id.id)
-        console.log(id.id)
         history.push(`/chat/${id.id}`)
-            window.location.reload()
+        window.location.reload()
         
     }
 
