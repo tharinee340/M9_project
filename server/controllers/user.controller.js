@@ -1,6 +1,7 @@
 const database = require('../config/database')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const path = require('path')
 
 exports.reg = function(req, res) {
 
@@ -82,3 +83,12 @@ exports.newsocket = (req,res) => {
         if(err) throw err
     })
 }
+
+// exports.fetchImage = (req, res) => {
+//     let image = req.body.image;
+//     let fileLocation = path.join('./images', image);
+//     console.log(image);
+//     console.log(fileLocation);
+//     //res.send({image: fileLocation});
+//     res.sendFile(__dirname + `/${fileLocation}`)
+// }

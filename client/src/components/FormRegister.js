@@ -83,11 +83,6 @@ const FormRegister = () => {
         const data = new FormData();
         data.append('image', fileData, date+fileData.name)
         console.log(date+fileData.name)
-
-        // if(password===confirmPass){
-        //     axios.post('http://localhost:8080/auth/users/reg/upload', data)
-                
-        // }
         
         if(password===confirmPass){
             // console.log(file.name)
@@ -99,23 +94,25 @@ const FormRegister = () => {
                     email:email,
  
                 }).then((response)=>{
-                    axios.post('http://localhost:8080/auth/users/reg/upload', data)
-                    if(response.status===200){
-                        history.push('/')
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Register Success!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'username In Use!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }                
+                    axios.post('http://localhost:8080/auth/users/reg/upload', data).then((res) => {
+                        if(res.status===200){
+                            history.push('/')
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Register Success!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'username In Use!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }                
+                    })
+                    
                 })
                 //ต้องมาเพิ่มตัว validate 
                 setValidated(true);

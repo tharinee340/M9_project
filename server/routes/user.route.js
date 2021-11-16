@@ -19,7 +19,7 @@ const upload = multer({ storage: storage })
 
 route.post('/reg/upload', upload.single('image'), (req, res) => {
     console.log('req file',req.file)
-    return res.status(200).json({message: "successsss"})
+    return res.status(200).json(req.file)
 })
 
 route.post('/reg', userController.reg)
@@ -29,5 +29,7 @@ route.post('/login', passport.authenticate('basic', {session: false}), userContr
 route.get('/get_user/:id', userController.getuser)
 
 route.post('/new_socket', userController.newsocket)
+
+
 
 module.exports = route

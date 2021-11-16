@@ -132,7 +132,7 @@ const AddFriendForm = () => {
                     results.map((result)=>(
                         <FriendContainer>
                             <Friend>
-                                <FriendImage src="https://cucans.in.th/wp-content/themes/cera/assets/images/avatars/user-avatar.png"/>
+                                <FriendImage src={`//localhost:8080/${result.imageURL}`} />
                                 <Name>{result.username}</Name>
                             </Friend>
                             <Button variant="primary" 

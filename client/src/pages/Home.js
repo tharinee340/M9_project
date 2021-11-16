@@ -21,6 +21,7 @@ const Home = () => {
     const socket = useContext(SocketContext)
     const {setMe,me,setCall} = useContext(SocketContextCall);
     const history = useHistory()
+    
     socket.on('me', (id) => {
         setMe(id)
         socket.emit('new_socket')

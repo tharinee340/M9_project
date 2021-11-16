@@ -89,7 +89,9 @@ const Sidebar2 = () => {
 
     const [friends, setFriends] = useState([])
     const [badgeRequest, setBadgeRequest] = useState('')
+    const [image, setImage] = useState(undefined)
     const id = JSON.parse(localStorage.getItem('user'))
+    const file = JSON.parse(localStorage.getItem('image'))
 
     useEffect(() => {
         if(id!==null){
@@ -97,12 +99,14 @@ const Sidebar2 = () => {
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
                 setFriends(res.data)
                 axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
-                    setBadgeRequest(res.data.length)   
+                    setBadgeRequest(res.data.length) 
                 })
             })
             
         }
     }, [])
+
+    
 
     socket.on('new_request',()=>{
         if(id!==null){
@@ -126,10 +130,8 @@ const Sidebar2 = () => {
         if(id!==null){
             axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
                 setFriends(res.data)
-                console.log('data',friends);
                 axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
                     setBadgeRequest(res.data.length)
-                    console.log('length',res.data.length);
                 })
             })
         }
@@ -185,7 +187,7 @@ const Sidebar2 = () => {
             <Container>
                 <Content>
                 <Profile>
-                    <ProfileImage src={`../../server/images/163691262132859f4bbbf7b069c1572bb9ca9792a4b6a.png`}></ProfileImage>
+                    <ProfileImage src={`//localhost:8080/${id.image}`} ></ProfileImage>
                 </Profile>
                 {id!==null ? (<Title>{id.username}</Title>):(<></>)}
                 <Request>
@@ -209,7 +211,7 @@ const Sidebar2 = () => {
                             <Friend>
                                 <Link to={`/chat/${user.id}`} style={{textDecoration:'none'}}>
                                 <div style={{display:'flex'}}>
-                                    <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
+                                    <FriendImage src={`//localhost:8080/${user.imageURL}`} />
                                     <NameFriend>{user.username}</NameFriend>
                                     <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
                                 </div>
