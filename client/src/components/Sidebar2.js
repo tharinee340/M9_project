@@ -208,7 +208,7 @@ const Sidebar2 = () => {
                                 <div style={{display:'flex'}}>
                                     <FriendImage src="https://img.freepik.com/free-photo/playful-hot-african-american-with-afro-hairstyle-pulling-hands-towards-make-selfie-winking-joyfully-smiling-broadly-making-new-profile-pic-social-network_176420-23120.jpg?size=626&ext=jpg"/>
                                     <NameFriend>{user.username}</NameFriend>
-                                    <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
+                                    <Badge badgeContent={0} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
                                 </div>
                                 </Link> </Friend>
                                 <Dropdown className="d-inline" style={{ display: "flex" ,marginTop:'13px'}}>
