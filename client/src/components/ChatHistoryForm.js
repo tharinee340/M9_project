@@ -45,6 +45,13 @@ const Timestamp = styled.p`
     margin-top: 9px;
 `
 
+const ChatLeft = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    
+`
+
 const ChatHistoryForm = () => {
 
     const socket = useContext(SocketContext);
@@ -94,9 +101,9 @@ const ChatHistoryForm = () => {
                             let dat2 = dat[1].split(':')
                             let time = dat2[0] + ':' + dat2[1]
                             if(message.user_id1===user.id){
-                                return <ChatRight><Timestamp>{time}</Timestamp><TextChatSent>{message.message}</TextChatSent></ChatRight>
+                                return <ChatRight><Timestamp>{dat[0]} / {time}</Timestamp><TextChatSent>{message.message}</TextChatSent></ChatRight>
                             }else{
-                                return <ChatRight><Timestamp>{time}</Timestamp><TextChatRecieve>{message.message}</TextChatRecieve></ChatRight>
+                                return <ChatLeft><TextChatRecieve>{message.message}</TextChatRecieve><Timestamp>{dat[0]} / {time} </Timestamp></ChatLeft>
                             }
                         })
                     ):(<>Not Found</>)}

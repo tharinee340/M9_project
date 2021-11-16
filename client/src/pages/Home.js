@@ -1,4 +1,4 @@
-import React , {useContext, useEffect} from 'react'
+import React , {useContext} from 'react'
 import Sidebar from '../components/Sidebar'
 import NavHome from '../components/NavHome'
 import styled from 'styled-components'
@@ -33,16 +33,18 @@ const Home = () => {
     if(!user){
         history.push('/login')
     }
+    if(user!==null){
+        axios.post('http://localhost:8080/auth/users/new_socket',{
+            id:user.id,
+            socket:me
+        }).then((response)=>{
+            console.log(response)
+            window.location.reload(true)
+        }).catch((err)=>{
+            throw err
+        })
+    }
 
-    axios.post('http://localhost:8080/auth/users/new_socket',{
-        id:user.id,
-        socket:me
-    }).then((response)=>{
-        console.log(response)
-        window.location.reload(true)
-    }).catch((err)=>{
-        throw err
-    })
 
     return (
         <>

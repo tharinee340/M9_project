@@ -6,7 +6,6 @@ import CallEndIcon from '@mui/icons-material/CallEnd';
 import { SocketContextCall } from '../ContextCall';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router'
-import axios from 'axios';
 
 const Container = styled.div`
     height: 90vh;
@@ -101,10 +100,10 @@ const VideoForm = () => {
     const id = useParams()
     console.log(id)
     const [stream, setStream] = useState(null);
-    const [calling, setCalling] = useState([])
+    // const [calling, setCalling] = useState([])
     const history = useHistory()
 
-    const { name, callAccepted, myVideo, userVideo, callEnded, call, callUser, leaveCall, setName} = useContext(SocketContextCall);
+    const { name, callAccepted, myVideo, userVideo, callEnded, call, leaveCall } = useContext(SocketContextCall);
 
     useEffect(() => {
         if(user!==null) {
@@ -113,8 +112,10 @@ const VideoForm = () => {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true})
             .then((currentStream) => {
                 setStream(currentStream);
+                console.log(currentStream)
 
                 myVideo.current.srcObject = currentStream;
+                console.log(myVideo)
 
             })
 

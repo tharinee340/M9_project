@@ -1,7 +1,6 @@
 import React,{useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 import {SocketContext} from '../context/socket';
 import { Button , Dropdown } from 'react-bootstrap'
@@ -84,8 +83,6 @@ const Sidebar2 = () => {
     const socket = useContext(SocketContext);
 
     const {setName} = useContext(SocketContextCall)
-
-    const history = useHistory()
 
     const [friends, setFriends] = useState([])
     const [badgeRequest, setBadgeRequest] = useState('')
@@ -193,7 +190,7 @@ const Sidebar2 = () => {
                 <Request>
                     <Link to="/friendRequest" style={{textDecoration: "none"}}>
                     <Title>Friend Request
-                        {badgeRequest == null || badgeRequest == undefined || badgeRequest == 0 ? (
+                        {badgeRequest === null || badgeRequest === undefined || badgeRequest === 0 ? (
                             <Badge badgeContent={0} showZero color="primary" style={{marginLeft: 20}}></Badge>
                         ):(
                             <Badge badgeContent={badgeRequest} showZero color="primary" style={{marginLeft: 20}}></Badge>
@@ -213,7 +210,7 @@ const Sidebar2 = () => {
                                 <div style={{display:'flex'}}>
                                     <FriendImage src={`//localhost:8080/${user.imageURL}`} />
                                     <NameFriend>{user.username}</NameFriend>
-                                    <Badge badgeContent={4} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
+                                    <Badge badgeContent={0} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
                                 </div>
                                 </Link> </Friend>
                                 <Dropdown className="d-inline" style={{ display: "flex" ,marginTop:'13px'}}>
