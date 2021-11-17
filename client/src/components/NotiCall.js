@@ -28,12 +28,10 @@ const Title = styled.h5``
 
 const NotiCall = () => {
 
-    const { call, answerCall, callAccepted, setStream } = useContext(SocketContextCall)
-    const history = useHistory();
+    const { call, answerCall, callAccepted } = useContext(SocketContextCall)
 
     const handleAccept = () => {
         answerCall()
-        history.push(`/call/${call.userToCall}`)
     }
 
     return (

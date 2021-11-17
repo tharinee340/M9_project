@@ -31,7 +31,7 @@ function App() {
             <Route Route path="/chathistory/:id/:query">
               <ChatHistory/>
             </Route>
-            <Route Route path="/call/:id">
+            <Route Route exact path="/call/:id">
               <VideoCall/>
             </Route>
             <Route path="/register">

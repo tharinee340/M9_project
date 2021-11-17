@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import {Row, Col, InputGroup, FormControl, Button} from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
@@ -97,24 +97,34 @@ const VideoForm = () => {
 
     let user = JSON.parse(localStorage.getItem('user'))
 
-    const id = useParams()
+    const {id} = useParams()
 
     const history = useHistory()
 
-    const { name, callAccepted, myVideo , userVideo , callEnded , call, leaveCall , stream } = useContext(SocketContextCall);
+    const { name, callAccepted , userVideo , callEnded , call, leaveCall , stream } = useContext(SocketContextCall);
+
+    const myVideo = useRef({})
 
     useEffect(() => {
         if(user!==null) {
-            
+            const getUserMedia = async () => {
+                try{
+                    let streamm = await navigator.mediaDevices.getUserMedia({ video: true, audio: false})
+                    myVideo.current.srcObject = streamm
+                }catch(err){
+                    throw err
+                }
+            }
+            getUserMedia()
         } else {
             history.push('/login')
         }
         
-    },[])
+    },[id])
 
     const handleEndCall = () => {
-        leaveCall(id.id)
-        history.push(`/chat/${id.id}`)
+        leaveCall(id)
+        history.push(`/chat/${id}`)
         window.location.reload()
         
     }
