@@ -76,7 +76,11 @@ const ShowFriend = () => {
     
     useEffect(()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            })
             .then((response)=>{
                 setFriends(response.data)
             })
@@ -93,7 +97,11 @@ const ShowFriend = () => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`)
+                axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`,{
+                    headers: {
+                        'Authorization':`Bearer ${id.token}`
+                    }
+                })
                 .then((res)=>{
                     socket.emit('delete_friend')
                 }).catch((err) => {
@@ -110,7 +118,11 @@ const ShowFriend = () => {
 
     socket.on('accept_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            })
             .then((response)=>{
                 setFriends(response.data)
             })
@@ -119,7 +131,11 @@ const ShowFriend = () => {
 
     socket.on('delete_friend',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`)
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            })
             .then((response)=>{
                 setFriends(response.data)
             })

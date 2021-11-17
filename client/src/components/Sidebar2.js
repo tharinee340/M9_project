@@ -52,7 +52,7 @@ const Name = styled.h4`
     font-size: 20px;
     transition: 0.5s;
     margin-top: 30px;
-    margin-left: 30px
+    margin-left: 30px;
 `
 const Friend = styled.div`
     height: 60px;
@@ -100,9 +100,17 @@ const Sidebar2 = () => {
     useEffect(() => {
         if(id!==null){
             setName(id.username)
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setFriends(res.data)
-                axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                    headers: {
+                        'Authorization':`Bearer ${id.token}`
+                    }
+                }).then((res) => {
                     setBadgeRequest(res.data.length) 
                 })
             })
@@ -114,7 +122,11 @@ const Sidebar2 = () => {
 
     socket.on('new_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setBadgeRequest(res.data.length)
             })
         }
@@ -122,7 +134,11 @@ const Sidebar2 = () => {
 
     socket.on('delete_friend',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setFriends(res.data)
             })
         }
@@ -132,9 +148,17 @@ const Sidebar2 = () => {
     
     socket.on('accept_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/list/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setFriends(res.data)
-                axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+                axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                    headers: {
+                        'Authorization':`Bearer ${id.token}`
+                    }
+                }).then((res) => {
                     setBadgeRequest(res.data.length)
                 })
             })
@@ -151,7 +175,11 @@ const Sidebar2 = () => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((res) => {
+                axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`,{
+                    headers: {
+                        'Authorization':`Bearer ${id.token}`
+                    }
+                }).then((res) => {
                     socket.emit('delete_friend')
                     Swal.fire(
                         'Deleted!',
@@ -173,7 +201,11 @@ const Sidebar2 = () => {
             confirmButtonText: 'Yes, clear it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/auth/chat/clearchat/${id.id}/${idd}`).then((res) => {
+                axios.delete(`http://localhost:8080/auth/chat/clearchat/${id.id}/${idd}`,{
+                    headers: {
+                        'Authorization':`Bearer ${id.token}`
+                    }
+                }).then((res) => {
                     socket.emit('clear_chat')
                     Swal.fire(
                         'Deleted!',

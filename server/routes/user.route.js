@@ -26,9 +26,9 @@ route.post('/reg', userController.reg)
 
 route.post('/login', passport.authenticate('basic', {session: false}), userController.login)
 
-route.get('/get_user/:id', userController.getuser)
+route.get('/get_user/:id', passport.authenticate('jwt',{session: false}), userController.getuser)
 
-route.post('/new_socket', userController.newsocket)
+route.post('/new_socket', passport.authenticate('jwt',{session: false}), userController.newsocket)
 
 
 

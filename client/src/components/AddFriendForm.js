@@ -73,6 +73,7 @@ const AddFriendForm = () => {
         axios.post('http://localhost:8080/auth/friend/search',{
             query:query,
             username: username.username
+        },{headers:{'Authorization':`Bearer ${id.token}`}
         }).then((response)=>{
             setResults(response.data.data)
             history.push('/addFriend')
@@ -85,6 +86,7 @@ const AddFriendForm = () => {
         axios.post('http://localhost:8080/auth/friend/add',{
             id: id.id,
             id2: id2
+        },{headers:{'Authorization':`Bearer ${id.token}`}
         }).then((res) => {
             Swal.fire({
                 icon: 'success',
@@ -107,7 +109,8 @@ const AddFriendForm = () => {
         if(id!==null){
             axios.post('http://localhost:8080/auth/friend/search',{
                 query:query
-            }).then((response)=>{
+            },{headers:{'Authorization':`Bearer ${id.token}`}
+        }).then((response)=>{
                 setResults(response.data.data)
             })
         }
