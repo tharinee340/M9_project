@@ -98,27 +98,14 @@ const VideoForm = () => {
     let user = JSON.parse(localStorage.getItem('user'))
 
     const id = useParams()
-    console.log(id)
-    const [stream, setStream] = useState(null);
-    // const [calling, setCalling] = useState([])
+
     const history = useHistory()
 
-    const { name, callAccepted, myVideo, userVideo, callEnded, call, leaveCall } = useContext(SocketContextCall);
+    const { name, callAccepted, myVideo , userVideo , callEnded , call, leaveCall , stream } = useContext(SocketContextCall);
 
     useEffect(() => {
         if(user!==null) {
-
-            //use camera and microphone
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true})
-            .then((currentStream) => {
-                setStream(currentStream);
-                console.log(currentStream)
-
-                myVideo.current.srcObject = currentStream;
-                console.log(myVideo)
-
-            })
-
+            
         } else {
             history.push('/login')
         }

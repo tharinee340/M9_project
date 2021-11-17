@@ -27,34 +27,14 @@ const NotiPop = styled.div`
 const Title = styled.h5``
 
 const NotiCall = () => {
-    const [stream, setStream] = useState(null);
-    const { call, answerCall, callAccepted, myVideo, userVideo} = useContext(SocketContextCall)
+
+    const { call, answerCall, callAccepted, setStream } = useContext(SocketContextCall)
     const history = useHistory();
 
-        const handleAccept = () => {
-            
-            
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true})
-            .then((currentStream) => {
-                // console.log(currentStream)
-                // setStream(currentStream);
-                // console.log("Hii")
-
-                // // myVideo.current.srcObject = currentStream;
-                setStream(currentStream);
-                // userVideo.current.srcObject = currentStream;
-                // console.log(myVideo)
-                answerCall(stream)
-
-                
-
-
-            })
-            history.push(`/call/${call.userToCall}`)
-            window.location.reload(true)
-        }
-        
-
+    const handleAccept = () => {
+        answerCall()
+        history.push(`/call/${call.userToCall}`)
+    }
 
     return (
         <>  
