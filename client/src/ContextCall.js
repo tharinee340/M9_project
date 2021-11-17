@@ -1,4 +1,4 @@
-import React, {useState, createContext, useRef} from 'react'
+import React, {useState, createContext, useRef,useEffect} from 'react'
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 
@@ -7,6 +7,7 @@ const SocketContextCall = createContext();
 const socket = io('http://localhost:8081')
 
 const ContextCallProvider = ({children}) => {
+  const [stream,setStream] = useState()
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState('');
@@ -17,16 +18,30 @@ const ContextCallProvider = ({children}) => {
   const userVideo = useRef();
   const connectionRef = useRef();
   
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then((currentStream) => {
+        setStream(currentStream);
 
-  const answerCall = (stream) => {
+        myVideo.current.srcObject = currentStream;
+      });
+
+    socket.on('me', (id) => setMe(id));
+
+    socket.on('callUser', ({ signal , from , name: callerName, userToCall }) => {
+      setCall({ isReceivingCall: true, from, name: callerName, signal , userToCall});
+    });
+  }, []);
+
+  const answerCall = () => {
     console.log("answer call")
-    
+    console.log(call)
     setCallAccepted(true);
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on('signal', (data) => {
-      socket.emit('answerCall', { signal: data, to: call.from });
+      socket.emit('answerCall', { signal: data, to: call.from  });
     });
 
     peer.on('stream', (currentStream) => {
@@ -38,11 +53,11 @@ const ContextCallProvider = ({children}) => {
     connectionRef.current = peer;
   };
 
-  const callUser = (id,stream) => {
+  const callUser = (usersocket,id) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on('signal', (data) => {
-      socket.emit('callUser', { userToCall: id, signalData: data, from: me, name });
+      socket.emit('callUser', { userToCall: usersocket, signalData: data, from: me, name, id });
     });
 
     peer.on('stream', (currentStream) => {

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import { SocketContextCall } from '../ContextCall'
 import { useHistory } from 'react-router'
+import axios from 'axios'
 
 const Container = styled.div`
     /* display: flex;
@@ -30,10 +31,9 @@ const NotiCall = () => {
     const { call, answerCall, callAccepted, myVideo, userVideo} = useContext(SocketContextCall)
     const history = useHistory();
 
-
         const handleAccept = () => {
-            console.log(call.id)
-
+            
+            
             navigator.mediaDevices.getUserMedia({ video: true, audio: true})
             .then((currentStream) => {
                 // console.log(currentStream)
@@ -46,11 +46,12 @@ const NotiCall = () => {
                 // console.log(myVideo)
                 answerCall(stream)
 
-                // history.push(`/call/${call.id}`)
+                
 
 
             })
-            
+            history.push(`/call/${call.userToCall}`)
+            window.location.reload(true)
         }
         
 

@@ -92,7 +92,7 @@ const NavChat = () => {
             })
 
         }  
-        callUser(usersocket)
+        callUser(id,usersocket)
     }
 
     return (

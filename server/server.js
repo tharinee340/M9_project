@@ -61,9 +61,11 @@ io.on('connection',socket=>{
         console.log('end_call')
         io.broadcast.emit("callended");
     })
-    socket.on("callUser", ({userToCall, signalData, from, name}) => {
+    socket.on("callUser", ({id, signalData, from, name, userToCall}) => {
         console.log('user_call')
-        io.to(userToCall).emit("callUser", {signal: signalData, from, name})
+        console.log('socket',id)
+        console.log('id',userToCall)
+        io.to(id).emit("callUser", {signal: signalData, from, name, userToCall})
     })
     socket.on("answerCall", (data) => {
         console.log('answer_call')

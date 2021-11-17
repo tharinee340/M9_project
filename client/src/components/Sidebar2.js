@@ -52,7 +52,7 @@ const Name = styled.h4`
     font-size: 20px;
     transition: 0.5s;
     margin-top: 30px;
-
+    margin-left: 30px
 `
 const Friend = styled.div`
     height: 60px;
