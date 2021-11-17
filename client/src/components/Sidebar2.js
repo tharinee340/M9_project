@@ -23,7 +23,8 @@ const Content = styled.div`
 const Profile = styled.div`
     height: 90px;
     width: 90px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    display: flex;
     
 `
 const ProfileImage = styled.img`
@@ -44,6 +45,13 @@ const Title = styled.h4`
     :hover {
         color: white;
     }
+
+`
+const Name = styled.h4`
+    color: lightgray;
+    font-size: 20px;
+    transition: 0.5s;
+    margin-top: 30px;
 
 `
 const Friend = styled.div`
@@ -72,11 +80,12 @@ const FriendContainer = styled.div`
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
+
 `
 const ContaiAllFriend = styled.div`
     overflow: hidden;
     overflow-y: scroll;
-    height: 50%;
+    height: 60%;
 `
 const Sidebar2 = () => {
     
@@ -187,9 +196,9 @@ const Sidebar2 = () => {
                     ):
                     (
                         <ProfileImage src="https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg" ></ProfileImage>
-                    )}     
+                    )}     {id!==null ? (<Name>{id.username}</Name>):(<></>)}
                 </Profile>
-                {id!==null ? (<Title>{id.username}</Title>):(<></>)}
+                
                 <Request>
                     <Link to="/friendRequest" style={{textDecoration: "none"}}>
                     <Title>Friend Request
