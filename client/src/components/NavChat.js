@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import {InputGroup,FormControl, Button } from 'react-bootstrap'
 import SearchIcon from '@mui/icons-material/Search';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import { Link } from 'react-router-dom'
-import { setsearch } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import axios from 'axios';
 import { SocketContextCall } from '../ContextCall';

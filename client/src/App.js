@@ -14,8 +14,6 @@ import ChatHistory from "./pages/ChatHistory";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-
-  // let isCalling = true;
   
   return (
     <>

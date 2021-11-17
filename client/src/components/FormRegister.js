@@ -8,7 +8,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 const Container = styled.div`
     display: flex;

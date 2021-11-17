@@ -52,7 +52,7 @@ const Name = styled.h4`
     font-size: 20px;
     transition: 0.5s;
     margin-top: 30px;
-    margin-left: 30px
+    margin-left: 30px;
 `
 const Friend = styled.div`
     height: 60px;
@@ -222,7 +222,6 @@ const Sidebar2 = () => {
                                 <div style={{display:'flex'}}>
                                     <FriendImage src={`//localhost:8080/${user.imageURL}`} />
                                     <NameFriend>{user.username}</NameFriend>
-                                    <Badge badgeContent={0} color="primary" style={{paddingLeft: 20, marginTop: 35}}></Badge>
                                 </div>
                                 </Link> </Friend>
                                 <Dropdown className="d-inline" style={{ display: "flex" ,marginTop:'13px'}}>

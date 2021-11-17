@@ -1,9 +1,7 @@
-import React, { useContext, useEffect , useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import { SocketContextCall } from '../ContextCall'
-import { useHistory } from 'react-router'
-import axios from 'axios'
 
 const Container = styled.div`
     /* display: flex;
