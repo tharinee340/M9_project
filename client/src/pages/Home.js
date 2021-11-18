@@ -37,6 +37,7 @@ const Home = () => {
         axios.post('http://localhost:8080/auth/users/new_socket',{
             id:user.id,
             socket:me
+        },{headers:{'Authorization':`Bearer ${user.token}`}
         }).then((response)=>{
             console.log(response)
             window.location.reload(true)

@@ -51,12 +51,21 @@ const NavChat = () => {
     const [username, setUsername] = useState('')
     const [usersocket,setUserSocket] = useState('')
 
+    const user = JSON.parse(localStorage.getItem('user'))
     useEffect(()=>{
-        axios.get(`http://localhost:8080/auth/users/get_user/${id}`).then((response)=>{
+        if(user !== null || user !== undefined){
+            axios.get(`http://localhost:8080/auth/users/get_user/${id}`,{
+            headers: {
+                'Authorization':`Bearer ${user.token}`
+            } 
+        }).then((response)=>{
             setUsername(response.data[0].username)
             setUserSocket(response.data[0].current_socket)
            
         })
+        }else{
+            history.push('/login')
+        }
     },[id])
 
     const onSearch = () => {
@@ -73,7 +82,11 @@ const NavChat = () => {
     }
 
     socket.on('new_socket',()=>{
-        axios.get(`http://localhost:8080/auth/users/get_user/${id}`).then((response)=>{
+        axios.get(`http://localhost:8080/auth/users/get_user/${id}`,{
+            headers: {
+                'Authorization':`Bearer ${user.token}`
+            } 
+        }).then((response)=>{
             setUsername(response.data[0].username)
             setUserSocket(response.data[0].current_socket)
            

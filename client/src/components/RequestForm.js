@@ -84,7 +84,11 @@ const RequestForm = () => {
 
     useEffect(()=>{
         if(id !== null){
-            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                headers:{
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setRequests(res.data)
             })
         }
@@ -94,6 +98,7 @@ const RequestForm = () => {
         axios.post('http://localhost:8080/auth/friend/confirm',{
             id:id.id,
             id2:idd
+        },{headers:{'Authorization':`Bearer ${id.token}`}
         }).then((response)=>{
             socket.emit('accept_request')
         }).catch((err)=>{
@@ -107,7 +112,11 @@ const RequestForm = () => {
     }
 
     const onDelete = (idd) => {
-        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`).then((response)=>{
+        axios.delete(`http://localhost:8080/auth/friend/delete/${id.id}/${idd}`,{
+            headers: {
+                'Authorization':`Bearer ${id.token}`
+            }
+        }).then((response)=>{
             socket.emit('delete_event')
         }).catch((err)=>{
             Swal.fire({
@@ -121,7 +130,11 @@ const RequestForm = () => {
 
     socket.on('delete_event',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setRequests(res.data)
             })
         }
@@ -129,7 +142,11 @@ const RequestForm = () => {
 
     socket.on('accept_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setRequests(res.data)
             })
         }
@@ -137,7 +154,11 @@ const RequestForm = () => {
 
     socket.on('new_request',()=>{
         if(id!==null){
-            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`).then((res) => {
+            axios.get(`http://localhost:8080/auth/friend/listrequest/${id.id}`,{
+                headers: {
+                    'Authorization':`Bearer ${id.token}`
+                }
+            }).then((res) => {
                 setRequests(res.data)
             })
         }

@@ -72,6 +72,7 @@ const ChatHistoryForm = () => {
             id:user.id,
             id2:id,
             query:query
+            },{headers:{'Authorization':`Bearer ${user.token}`}
             }).then((response)=>{
                 setMessages(response.data.data)
             })
@@ -85,6 +86,7 @@ const ChatHistoryForm = () => {
             id:user.id,
             id2:id,
             query:query
+        },{headers:{'Authorization':`Bearer ${user.token}`}
         }).then((response)=>{
             setMessages(response.data.data)
         })
